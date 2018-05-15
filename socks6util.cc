@@ -57,18 +57,18 @@ int S6U_Socket_HasMPTCP(int fd)
 int S6U_Packet_HasTFO(const uint8_t *ipPacket)
 {
 	const tcphdr *tcpHeader;
-	const ip *ipHeader = (ip *)ipPacket;
+	const ip *ipHeader = (const ip *)ipPacket;
 	
 	if (ipHeader->ip_v == 4)
-		tcpHeader = (tcphdr *)(ipPacket + ipHeader->ip_hl * 4);
+		tcpHeader = (const tcphdr *)(ipPacket + ipHeader->ip_hl * 4);
 	else if (ipHeader->ip_v == 6)
-		tcpHeader = (tcphdr *)(ipPacket + sizeof(ip6_hdr));
+		tcpHeader = (const tcphdr *)(ipPacket + sizeof(ip6_hdr));
 	else
 		return 0; //IPv7 is here!
 	
 	/* sanity assured by the (Linux) kernel up to here; options can still be spurious */
 	
-	uint8_t *options = (uint8_t *)(tcpHeader + 1);
+	const uint8_t *options = (const uint8_t *)(tcpHeader + 1);
 	int optionsLen = tcpHeader->doff * 4 - sizeof(tcphdr);
 	
 	for (int i = 0; i < optionsLen - 1;)
