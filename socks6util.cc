@@ -26,6 +26,7 @@
 int S6U_Socket_SaveSYN(int fd)
 {
 	static const uint32_t one = 1;
+	
 	return setsockopt(fd, SOL_TCP, TCP_SAVE_SYN, &one, sizeof(one));
 }
 
@@ -33,6 +34,7 @@ int S6U_Socket_TFOAttempted(int fd)
 {
 	uint8_t buf[BUF_SIZE];
 	socklen_t bufSize = BUF_SIZE;
+	
 	int err = getsockopt(fd, SOL_TCP, TCP_SAVED_SYN, buf, &bufSize);
 	if (err < 0)
 		return err;
@@ -56,6 +58,7 @@ int S6U_Packet_HasTFO(const uint8_t *ipPacket)
 {
 	const tcphdr *tcpHeader;
 	const ip *ipHeader = (ip *)ipPacket;
+	
 	if (ipHeader->ip_v == 4)
 		tcpHeader = (tcphdr *)(ipPacket + ipHeader->ip_hl * 4);
 	else if (ipHeader->ip_v == 6)
