@@ -14,7 +14,7 @@ extern "C"
 typedef void S6U_TokenWallet;
 typedef void S6U_TokenBank;
 
-S6U_TokenWallet *S6U_TokenWallet_create();
+S6U_TokenWallet *S6U_TokenWallet_create(uint32_t base, uint32_t size);
 void S6U_TokenWallet_destroy(S6U_TokenWallet *ctx);
 int S6U_TokenWallet_extract(S6U_TokenWallet *ctx, uint32_t *token);
 void S6U_TokenWallet_updateWindow(S6U_TokenWallet *ctx, uint32_t newBase, uint32_t newSize);

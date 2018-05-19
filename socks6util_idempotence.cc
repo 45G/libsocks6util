@@ -26,14 +26,6 @@ bool TokenWallet::extract(uint32_t *token)
 
 void TokenWallet::updateWindow(uint32_t newBase, uint32_t newSize)
 {
-	//TODO: move functionality to constructor
-	if (size == 0)
-	{
-		base = newBase;
-		size = newSize;
-		current = newBase;
-	}
-	
 	if (modularLess(newBase, base))
 		return;
 	

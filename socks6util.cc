@@ -15,11 +15,11 @@ using namespace S6U;
 	} \
 	catch (...) {}
 
-S6U_TokenWallet *S6U_TokenWallet_create()
+S6U_TokenWallet *S6U_TokenWallet_create(uint32_t base, uint32_t size)
 {
 	try
 	{
-		return new TokenWallet();
+		return new TokenWallet(base, size);
 	}
 	S6U_CATCH;
 	
