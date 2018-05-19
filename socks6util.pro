@@ -13,10 +13,12 @@ CONFIG += c++11
 CONFIG += c99
 
 SOURCES += \
-    socks6util.cc
+    socks6util.cc \
+    socks6util_packet.cc
 
 HEADERS += \
-        socks6util.h
+    socks6util_packet.h \
+    socks6util_socket.h
 unix {
     target.path = /usr/lib
     INSTALLS += target
