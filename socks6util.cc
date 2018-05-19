@@ -112,3 +112,8 @@ int S6U_Socket_hasMPTCP(int fd)
 {
 	return Socket::hasMPTCP(fd);
 }
+
+SOCKS6OperationReplyCode S6U_Socket_connectErrnoToReplyCode(int error)
+{
+	return Socket::connectErrnoToReplyCode(error);
+}

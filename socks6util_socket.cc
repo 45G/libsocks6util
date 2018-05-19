@@ -1,3 +1,4 @@
+#include <errno.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/ip.h>
@@ -54,7 +55,41 @@ int hasMPTCP(int fd)
 	if (err < 0)
 		return err;
 	
-	return opt[0] != '\0';
+    return opt[0] != '\0';
+}
+
+SOCKS6OperationReplyCode connectErrnoToReplyCode(int error)
+{
+	switch (error)
+	{
+	case 0:
+		return SOCKS6_OPERATION_REPLY_SUCCESS;
+		
+	/* assuming the address was not a broadcast address*/
+	case EACCES:
+	case EPERM:
+		return SOCKS6_OPERATION_REPLY_NOT_ALLOWED;
+		
+	/* better write code to check this case beforehand; also check address type returned by getaddrinfo() */
+	case EAFNOSUPPORT:
+		return SOCKS6_OPERATION_REPLY_ADDR_NOT_SUPPORTED;
+		
+	case ECONNREFUSED:
+		return SOCKS6_OPERATION_REPLY_REFUSED;
+		
+	case ENETUNREACH:
+		return SOCKS6_OPERATION_REPLY_NET_UNREACH;
+		
+	case EHOSTUNREACH:
+		return SOCKS6_OPERATION_REPLY_HOST_UNREACH;
+		
+	case ETIMEDOUT:
+		//TODO: add error code to SOCKS spec
+		return SOCKS6_OPERATION_REPLY_FAILURE;
+	}
+	
+	/* assuming no benign errnos were passed */
+	return SOCKS6_OPERATION_REPLY_FAILURE;
 }
 
 }
