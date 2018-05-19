@@ -25,12 +25,14 @@ SOCKS6TokenExpenditureCode S6U_TokenBank_withdraw(S6U_TokenBank *ctx, uint32_t t
 uint32_t S6U_TokenBank_getBase(S6U_TokenBank *ctx);
 uint32_t S6U_TokenBank_getSize(S6U_TokenBank *ctx);
 
+int S6U_Packet_hasTFO(const uint8_t *ipPacket);
+
+int S6U_Socket_saveSYN(int fd);
+int S6U_Socket_tfoAttempted(int fd);
+int S6U_Socket_hasMPTCP(int fd);
+
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
-
-/* C-only headers */
-#include "socks6util_socket.h"
-#include "socks6util_packet.h"
 
 #endif // SOCKS6UTIL_H

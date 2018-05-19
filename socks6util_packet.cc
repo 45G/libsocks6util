@@ -1,6 +1,3 @@
-#ifndef SOCKS6UTIL_PACKET_CC
-#define SOCKS6UTIL_PACKET_CC
-
 #include <netinet/ip.h>
 #include <netinet/ip6.h>
 #include <netinet/tcp.h>
@@ -17,9 +14,15 @@
 #define TCPOPT_TFO 34
 #endif
 
-#include "socks6util_packet.h"
+#include "socks6util_packet.hh"
 
-int S6U_Packet_HasTFO(const uint8_t *ipPacket)
+namespace S6U
+{
+
+namespace Packet
+{
+
+bool hasTFO(const uint8_t *ipPacket)
 {
 	const tcphdr *tcpHeader;
 	const ip *ipHeader = (const ip *)ipPacket;
@@ -29,7 +32,7 @@ int S6U_Packet_HasTFO(const uint8_t *ipPacket)
 	else if (ipHeader->ip_v == 6)
 		tcpHeader = (const tcphdr *)(ipPacket + sizeof(ip6_hdr));
 	else
-		return 0; //IPv7 is here!
+		return false; //IPv7 is here!
 	
 	/* sanity assured by the (Linux) kernel up to here; options can still be spurious */
 	
@@ -39,9 +42,9 @@ int S6U_Packet_HasTFO(const uint8_t *ipPacket)
 	for (int i = 0; i < optionsLen - 1;)
 	{
 		if (options[i] == TCPOPT_EOL)
-			return 0;
+			return false;
 		if (options[i] == TCPOPT_TFO)
-			return 1;
+			return true;
 		if (options[i] == TCPOPT_NOP)
 		{
 			i++;
@@ -50,11 +53,14 @@ int S6U_Packet_HasTFO(const uint8_t *ipPacket)
 		
 		int optlen = options[i + 1];
 		if (optlen < 2)
-			return 0;
+			return false;
 		i += optlen;
 	}
 	
-	return 0;
+	return false;
 }
 
-#endif // SOCKS6UTIL_PACKET_CC
+}
+
+}
+

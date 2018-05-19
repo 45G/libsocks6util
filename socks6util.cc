@@ -2,6 +2,8 @@
 #include <errno.h>
 #include "socks6util.h"
 #include "socks6util_idempotence.hh"
+#include "socks6util_packet.hh"
+#include "socks6util_socket.hh"
 
 using namespace std;
 using namespace S6U;
@@ -82,4 +84,24 @@ uint32_t S6U_TokenBank_getSize(S6U_TokenBank *ctx)
 	TokenBank *bank = reinterpret_cast<TokenBank *>(ctx);
 	
 	return bank->getSize();
+}
+
+int S6U_Packet_hasTFO(const uint8_t *ipPacket)
+{
+	return (int)Packet::hasTFO(ipPacket);
+}
+
+int S6U_Socket_saveSYN(int fd)
+{
+	return Socket::saveSYN(fd);
+}
+
+int S6U_Socket_tfoAttempted(int fd)
+{
+	return Socket::tfoAttempted(fd);
+}
+
+int S6U_Socket_hasMPTCP(int fd)
+{
+	return Socket::hasMPTCP(fd);
 }

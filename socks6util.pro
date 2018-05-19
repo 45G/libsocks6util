@@ -19,11 +19,11 @@ SOURCES += \
     socks6util.cc
 
 HEADERS += \
-    socks6util_packet.h \
-    socks6util_socket.h \
     socks6util_idempotence.hh \
     socks6util.h \
-    socks6util.hh
+    socks6util.hh \
+    socks6util_packet.hh \
+    socks6util_socket.hh
 unix {
     target.path = /usr/lib
     INSTALLS += target
