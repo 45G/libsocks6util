@@ -10,24 +10,24 @@
 namespace S6U
 {
 
-class IdempotenceClientContext
+class TokenWallet
 {
 	uint32_t base;
 	uint32_t current;
 	uint32_t size;
 	
 public:
-	IdempotenceClientContext()
+	TokenWallet()
 		: base(0), current(0), size(0) {}
 	
-	bool issueToken(uint32_t *token);
+	bool extract(uint32_t *token);
 	
 	void updateWindow(uint32_t newBase, uint32_t newSize);
 	
 	uint32_t remaining() const;
 };
 
-class IdempotenceServerContext
+class TokenBank
 {
 	uint32_t base;
 	uint32_t offset;
@@ -44,9 +44,9 @@ class IdempotenceServerContext
 	}
 
 public:
-	IdempotenceServerContext(uint32_t base, uint32_t size, uint32_t backlog, uint32_t lowWatermark, uint32_t highWatermark);
+	TokenBank(uint32_t base, uint32_t size, uint32_t backlog, uint32_t lowWatermark, uint32_t highWatermark);
 	
-	SOCKS6TokenExpenditureCode spend(uint32_t token);
+	SOCKS6TokenExpenditureCode withdraw(uint32_t token);
 	
 	uint32_t getBase() const
 	{

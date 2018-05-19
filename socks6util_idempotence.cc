@@ -13,7 +13,7 @@ static bool modularLessEqual(uint32_t x, uint32_t y)
 	return (x - y) < (1UL<<31);
 }
 
-bool IdempotenceClientContext::issueToken(uint32_t *token)
+bool TokenWallet::extract(uint32_t *token)
 {
 	if (!modularLess(current, base + size))
 		return false;
@@ -24,7 +24,7 @@ bool IdempotenceClientContext::issueToken(uint32_t *token)
 	return true;
 }
 
-void IdempotenceClientContext::updateWindow(uint32_t newBase, uint32_t newSize)
+void TokenWallet::updateWindow(uint32_t newBase, uint32_t newSize)
 {
 	if (modularLess(newBase, base))
 		return;
@@ -36,18 +36,18 @@ void IdempotenceClientContext::updateWindow(uint32_t newBase, uint32_t newSize)
 		current = newBase;
 }
 
-uint32_t IdempotenceClientContext::remaining() const
+uint32_t TokenWallet::remaining() const
 {
 	return base + size - current;
 }
 
-IdempotenceServerContext::IdempotenceServerContext(uint32_t base, uint32_t size, uint32_t backlog, uint32_t lowWatermark, uint32_t highWatermark)
+TokenBank::TokenBank(uint32_t base, uint32_t size, uint32_t backlog, uint32_t lowWatermark, uint32_t highWatermark)
 	: base(base), offset(0), backlog(backlog), lowWatermark(lowWatermark), highWatermark(highWatermark)
 {
 	spentTokens.resize(size, 0);
 }
 
-SOCKS6TokenExpenditureCode IdempotenceServerContext::spend(uint32_t token)
+SOCKS6TokenExpenditureCode TokenBank::withdraw(uint32_t token)
 {
 	/* in window? */
 	if (!(modularLessEqual(base, token) && modularLess(token, base + getSize())))
