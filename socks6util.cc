@@ -65,6 +65,13 @@ S6U_TokenBank *S6U_TokenBank_create(uint32_t base, uint32_t size, uint32_t lowWa
 	return NULL;
 }
 
+void S6U_TokenBank_destroy(S6U_TokenBank *ctx)
+{
+	TokenBank *bank = reinterpret_cast<TokenBank *>(ctx);
+	
+	delete bank;
+}
+
 SOCKS6TokenExpenditureCode S6U_TokenBank_withdraw(S6U_TokenBank *ctx, uint32_t token)
 {
 	TokenBank *bank = reinterpret_cast<TokenBank *>(ctx);
