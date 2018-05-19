@@ -21,7 +21,7 @@ void S6U_TokenWallet_updateWindow(S6U_TokenWallet *ctx, uint32_t newBase, uint32
 uint32_t S6U_TokenWallet_remaining(S6U_TokenWallet *ctx);
 
 S6U_TokenBank *S6U_TokenBank_create(uint32_t base, uint32_t size, uint32_t lowWatermark, uint32_t highWatermark);
-SOCKS6TokenExpenditureCode S6U_TokenBank_withdraw(S6U_TokenBank *ctx, uint32_t token);
+enum SOCKS6TokenExpenditureCode S6U_TokenBank_withdraw(S6U_TokenBank *ctx, uint32_t token);
 uint32_t S6U_TokenBank_getBase(S6U_TokenBank *ctx);
 uint32_t S6U_TokenBank_getSize(S6U_TokenBank *ctx);
 
