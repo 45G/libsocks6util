@@ -49,7 +49,6 @@ TokenBank::TokenBank(uint32_t base, uint32_t size, uint32_t lowWatermark, uint32
 
 SOCKS6TokenExpenditureCode TokenBank::withdraw(uint32_t token)
 {
-	/* in window? */
 	if (!(modularLessEqual(base, token) && modularLess(token, base + getSize())))
 		return SOCKS6_TOK_EXPEND_OUT_OF_WND;
 	
