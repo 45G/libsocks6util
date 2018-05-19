@@ -54,11 +54,11 @@ uint32_t S6U_TokenWallet_remaining(S6U_TokenWallet *ctx)
 	return wallet->remaining();
 }
 
-S6U_TokenBank *S6U_TokenBank_create(uint32_t base, uint32_t size, uint32_t backlog, uint32_t lowWatermark, uint32_t highWatermark)
+S6U_TokenBank *S6U_TokenBank_create(uint32_t base, uint32_t size, uint32_t lowWatermark, uint32_t highWatermark)
 {
 	try
 	{
-		return new TokenBank(base, size, backlog, lowWatermark, highWatermark);
+		return new TokenBank(base, size, lowWatermark, highWatermark);
 	}
 	S6U_CATCH;
 	

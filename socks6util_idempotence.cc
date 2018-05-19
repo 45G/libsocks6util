@@ -41,8 +41,8 @@ uint32_t TokenWallet::remaining() const
 	return base + size - current;
 }
 
-TokenBank::TokenBank(uint32_t base, uint32_t size, uint32_t backlog, uint32_t lowWatermark, uint32_t highWatermark)
-	: base(base), offset(0), backlog(backlog), lowWatermark(lowWatermark), highWatermark(highWatermark)
+TokenBank::TokenBank(uint32_t base, uint32_t size, uint32_t lowWatermark, uint32_t highWatermark)
+	: base(base), offset(0), lowWatermark(lowWatermark), highWatermark(highWatermark)
 {
 	spentTokens.resize(size, 0);
 }
@@ -58,17 +58,7 @@ SOCKS6TokenExpenditureCode TokenBank::withdraw(uint32_t token)
 	
 	spentTokens[index(token)] = true;
 	
-	if (token - base >= highWatermark)
-	{
-		while (token - base > lowWatermark)
-		{
-			spentTokens[index(base)] = false;
-			base++;
-			offset = (offset + 1) % spentTokens.size();
-		}
-	}
-	
-	while (token - base > backlog && spentTokens[index(base)])
+	while (modularLess(base + highWatermark, token) || (modularLess(base + lowWatermark, token) && spentTokens[index(base)]))
 	{
 		spentTokens[index(base)] = false;
 		base++;
