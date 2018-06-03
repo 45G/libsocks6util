@@ -11,7 +11,7 @@ using namespace S6U;
 #define S6U_CATCH \
 	catch (bad_alloc) \
 	{ \
-		errno = ENOMEM;; \
+		errno = ENOMEM; \
 	} \
 	catch (...) {}
 
