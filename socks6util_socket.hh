@@ -1,8 +1,7 @@
 #ifndef SOCKS6UTIL_SOCKET_HH
 #define SOCKS6UTIL_SOCKET_HH
 
-//TODO: find nice way to include this
-#include "../libsocks6msg/socks6.h"
+#include <socks6msg/socks6.h>
 
 namespace S6U
 {

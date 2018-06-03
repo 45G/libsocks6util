@@ -84,8 +84,7 @@ SOCKS6OperationReplyCode connectErrnoToReplyCode(int error)
 		return SOCKS6_OPERATION_REPLY_HOST_UNREACH;
 		
 	case ETIMEDOUT:
-		//TODO: add error code to SOCKS spec
-		return SOCKS6_OPERATION_REPLY_FAILURE;
+		return SOCKS6_OPERATION_REPLY_TIMEOUT;
 	}
 	
 	/* assuming no benign errnos were passed */
