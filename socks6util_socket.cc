@@ -4,7 +4,6 @@
 #include <netinet/ip6.h>
 #include <netinet/tcp.h>
 #include <linux/netfilter_ipv4.h>
-#include <linux/netfilter_ipv6.h>
 #include "socks6util_socket.hh"
 #include "socks6util_packet.hh"
 
