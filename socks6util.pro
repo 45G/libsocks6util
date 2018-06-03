@@ -24,7 +24,16 @@ HEADERS += \
     socks6util.hh \
     socks6util_packet.hh \
     socks6util_socket.hh
+
 unix {
-    target.path = /usr/lib
+    headers.path = /usr/local/include/socks6util
+    headers.files += $$HEADERS
+    INSTALLS += headers
+    exists(/usr/local/lib64) {
+        target.path = /usr/local/lib64
+    }
+    else {
+        target.path = /usr/local/lib
+    }
     INSTALLS += target
 }
