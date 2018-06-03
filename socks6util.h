@@ -29,7 +29,7 @@ int S6U_Packet_hasTFO(const uint8_t *ipPacket);
 int S6U_Socket_saveSYN(int fd);
 int S6U_Socket_tfoAttempted(int fd);
 int S6U_Socket_hasMPTCP(int fd);
-SOCKS6OperationReplyCode S6U_Socket_connectErrnoToReplyCode(int error);
+enum SOCKS6OperationReplyCode S6U_Socket_connectErrnoToReplyCode(int error);
 
 #ifdef __cplusplus
 }
