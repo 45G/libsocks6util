@@ -30,6 +30,7 @@ int S6U_Socket_saveSYN(int fd);
 int S6U_Socket_tfoAttempted(int fd);
 int S6U_Socket_hasMPTCP(int fd);
 enum SOCKS6OperationReplyCode S6U_Socket_connectErrnoToReplyCode(int error);
+int S6U_Socket_getOriginalDestination(int fd, struct sockaddr_storage *destination);
 
 #ifdef __cplusplus
 }

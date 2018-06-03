@@ -117,3 +117,8 @@ SOCKS6OperationReplyCode S6U_Socket_connectErrnoToReplyCode(int error)
 {
 	return Socket::connectErrnoToReplyCode(error);
 }
+
+int S6U_Socket_getOriginalDestination(int fd, sockaddr_storage *destination)
+{
+	return Socket::getOriginalDestination(fd, destination);
+}

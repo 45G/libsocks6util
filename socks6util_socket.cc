@@ -1,9 +1,10 @@
 #include <errno.h>
 #include <sys/types.h>
-#include <sys/socket.h>
 #include <netinet/ip.h>
 #include <netinet/ip6.h>
 #include <netinet/tcp.h>
+#include <linux/netfilter_ipv4.h>
+#include <linux/netfilter_ipv6.h>
 #include "socks6util_socket.hh"
 #include "socks6util_packet.hh"
 
@@ -48,6 +49,7 @@ int tfoAttempted(int fd)
 
 int hasMPTCP(int fd)
 {
+	//TODO: find more elegant way to do this
 	char opt[20];
 	socklen_t opt_size = sizeof(opt);
 	
@@ -55,7 +57,7 @@ int hasMPTCP(int fd)
 	if (err < 0)
 		return err;
 	
-    return opt[0] != '\0';
+	return opt[0] != '\0';
 }
 
 SOCKS6OperationReplyCode connectErrnoToReplyCode(int error)
@@ -89,6 +91,14 @@ SOCKS6OperationReplyCode connectErrnoToReplyCode(int error)
 	
 	/* assuming no benign errnos were passed */
 	return SOCKS6_OPERATION_REPLY_FAILURE;
+}
+
+int getOriginalDestination(int fd, sockaddr_storage *destination)
+{
+	//TODO: check if this works for IPv6
+	socklen_t destLen = sizeof(sockaddr_storage);
+	
+	return getsockopt(fd, SOL_IP, SO_ORIGINAL_DST, destination, &destLen);
 }
 
 }
