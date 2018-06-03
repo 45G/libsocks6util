@@ -4,8 +4,7 @@
 #include <stdint.h>
 #include <vector>
 #include <sys/types.h>
-//TODO: find nice way to include this
-#include "../libsocks6msg/socks6.h"
+#include <socks6msg/socks6.h>
 
 namespace S6U
 {

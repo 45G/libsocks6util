@@ -2,8 +2,7 @@
 #define SOCKS6UTIL_H
 
 #include <stdlib.h>
-//TODO: find nice way to include this
-#include "../libsocks6msg/socks6.h"
+#include <socks6msg/socks6.h>
 
 #ifdef __cplusplus
 extern "C"
