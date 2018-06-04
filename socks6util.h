@@ -62,10 +62,10 @@ static inline void S6U_SocketAddress_init(union S6U_SocketAddress *sa, const str
 static inline ssize_t S6U_SocketAddress_size(const union S6U_SocketAddress *sa)
 {
 	if (sa->storage.ss_family == AF_INET)
-		return sizeof(sockaddr_in);
+		return sizeof(struct sockaddr_in);
 	
 	if (sa->storage.ss_family == AF_INET6)
-		return sizeof(sockaddr_in6);
+		return sizeof(struct sockaddr_in6);
 	
 	return -1;
 }
