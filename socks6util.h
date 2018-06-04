@@ -39,7 +39,7 @@ union S6U_SocketAddress
 	struct sockaddr_in6 ipv6;
 };
 
-static inline void S6U_SocketAddress_init(union S6U_SocketAddress *sa, const S6M_Address *addr, uint16_t port)
+static inline void S6U_SocketAddress_init(union S6U_SocketAddress *sa, const struct S6M_Address *addr, uint16_t port)
 {
 	if (addr->type == SOCKS6_ADDR_IPV4)
 	{
@@ -70,7 +70,7 @@ static inline ssize_t S6U_SocketAddress_size(const union S6U_SocketAddress *sa)
 	return -1;
 }
 
-S6M_Address getAddress(const union S6U_SocketAddress *sa)
+struct S6M_Address getAddress(const union S6U_SocketAddress *sa)
 {
 	struct S6M_Address ret;
 	
