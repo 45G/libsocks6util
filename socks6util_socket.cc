@@ -100,6 +100,42 @@ int getOriginalDestination(int fd, sockaddr_storage *destination)
 	return getsockopt(fd, SOL_IP, SO_ORIGINAL_DST, destination, &destLen);
 }
 
+S6M::Address getAddress(const sockaddr_storage *socketAddress)
+{
+	if (socketAddress->ss_family == AF_INET)
+	{
+		const sockaddr_in *ipv4 = reinterpret_cast<const sockaddr_in *>(socketAddress);
+		return S6M::Address(ipv4->sin_addr);
+	}
+	else if (socketAddress->ss_family == AF_INET6)
+	{
+		const sockaddr_in6 *ipv6 = reinterpret_cast<const sockaddr_in6 *>(socketAddress);
+		return S6M::Address(ipv6->sin6_addr);
+	}
+	else
+	{
+		return S6M::Address();
+	}
+}
+
+uint16_t getPort(const sockaddr_storage *socketAddress)
+{
+	if (socketAddress->ss_family == AF_INET)
+	{
+		const sockaddr_in *ipv4 = reinterpret_cast<const sockaddr_in *>(socketAddress);
+		return ntohs(ipv4->sin_port);
+	}
+	else if (socketAddress->ss_family == AF_INET6)
+	{
+		const sockaddr_in6 *ipv6 = reinterpret_cast<const sockaddr_in6 *>(socketAddress);
+		return ntohs(ipv6->sin6_port);
+	}
+	else
+	{
+		return 0;
+	}
+}
+
 }
 
 }

@@ -3,6 +3,7 @@
 
 #include <sys/socket.h>
 #include <socks6msg/socks6.h>
+#include <socks6msg/socks6msg_address.hh>
 
 namespace S6U
 {
@@ -15,6 +16,8 @@ int tfoAttempted(int fd);
 int hasMPTCP(int fd);
 SOCKS6OperationReplyCode connectErrnoToReplyCode(int error);
 int getOriginalDestination(int fd, sockaddr_storage *destination);
+S6M::Address getAddress(const sockaddr_storage *socketAddress);
+uint16_t getPort(const sockaddr_storage *socketAddress);
 
 }
 

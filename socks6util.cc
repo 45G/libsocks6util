@@ -1,5 +1,6 @@
 #include <exception>
 #include <errno.h>
+#include <socks6msg/socks6msg_address.hh>
 #include "socks6util.h"
 #include "socks6util_idempotence.hh"
 #include "socks6util_packet.hh"
@@ -121,4 +122,34 @@ SOCKS6OperationReplyCode S6U_Socket_connectErrnoToReplyCode(int error)
 int S6U_Socket_getOriginalDestination(int fd, sockaddr_storage *destination)
 {
 	return Socket::getOriginalDestination(fd, destination);
+}
+
+S6M_Address S6U_Socket_getAddress(const sockaddr_storage *socketAddress)
+{
+	S6M::Address cppAddr = Socket::getAddress(socketAddress);
+	S6M_Address cAddr;
+	
+	switch (cppAddr.getType())
+	{
+	case SOCKS6_ADDR_IPV4:
+		cAddr.type = SOCKS6_ADDR_IPV4;
+		cAddr.ipv4 = cppAddr.getIPv4();
+		break;
+		
+	case SOCKS6_ADDR_IPV6:
+		cAddr.type = SOCKS6_ADDR_IPV6;
+		cAddr.ipv6 = cppAddr.getIPv6();
+		break;
+		
+	default:
+		cAddr.type = (SOCKS6AddressType)S6M_ADDRESS_INVALID_TYPE;
+		break;
+	}
+	
+	return cAddr;
+}
+
+uint16_t S6U_Socket_getPort(const sockaddr_storage *socketAddress)
+{
+	return Socket::getPort(socketAddress);
 }
