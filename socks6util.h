@@ -2,7 +2,6 @@
 #define SOCKS6UTIL_H
 
 #include <stdlib.h>
-#include <socks6msg/socks6.h>
 #include <socks6msg/socks6msg.h>
 
 #ifdef __cplusplus
