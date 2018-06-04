@@ -1,5 +1,6 @@
-#include <exception>
+#include <string.h>
 #include <errno.h>
+#include <exception>
 #include <socks6msg/socks6msg_address.hh>
 #include "socks6util.h"
 #include "socks6util_idempotence.hh"

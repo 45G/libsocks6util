@@ -52,9 +52,9 @@ union SocketAddress
 		}
 		else if (addr.getType() == SOCKS6_ADDR_IPV6)
 		{
-			ipv6.sin_family = AF_INET;
-			ipv6.sin_addr = addr.getIPv6();
-			ipv6.sin_port = htons(port);
+			ipv6.sin6_family = AF_INET6;
+			ipv6.sin6_addr = addr.getIPv6();
+			ipv6.sin6_port = htons(port);
 		}
 		else
 		{
@@ -62,7 +62,7 @@ union SocketAddress
 		}
 	}
 	
-	ssize_t size()
+	ssize_t size() const
 	{
 		if (storage.ss_family == AF_INET)
 			return sizeof(sockaddr_in);
@@ -73,7 +73,7 @@ union SocketAddress
 		return -1;
 	}
 	
-	S6M::Address getAddress()
+	S6M::Address getAddress() const
 	{
 		if (storage.ss_family == AF_INET)
 			return S6M::Address(ipv4.sin_addr);
@@ -83,7 +83,7 @@ union SocketAddress
 			return S6M::Address();
 	}
 	
-	uint16_t getPort()
+	uint16_t getPort() const
 	{
 		if (storage.ss_family == AF_INET)
 			return ntohs(ipv4.sin_port);
@@ -101,7 +101,7 @@ union SocketAddress
 			ipv6.sin6_port = htons(port);
 	}
 	
-	bool isValid()
+	bool isValid() const
 	{
 		return getPort() != 0;
 	}
