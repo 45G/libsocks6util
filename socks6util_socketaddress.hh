@@ -1,7 +1,7 @@
 #ifndef SOCKS6UTIL_SOCKETADDRESS_HH
 #define SOCKS6UTIL_SOCKETADDRESS_HH
 
-#include <string>
+#include <string.h>
 #include <netinet/in.h>
 #include <socks6msg/socks6msg_address.hh>
 
