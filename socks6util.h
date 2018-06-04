@@ -39,81 +39,17 @@ union S6U_SocketAddress
 	struct sockaddr_in6 ipv6;
 };
 
-static inline void S6U_SocketAddress_init(union S6U_SocketAddress *sa, const struct S6M_Address *addr, uint16_t port)
-{
-	if (addr->type == SOCKS6_ADDR_IPV4)
-	{
-		sa->ipv4.sin_family = AF_INET;
-		sa->ipv4.sin_addr = addr->ipv4;
-		sa->ipv4.sin_port = htons(port);
-	}
-	else if (addr->type == SOCKS6_ADDR_IPV6)
-	{
-		sa->ipv6.sin6_family = AF_INET6;
-		sa->ipv6.sin6_addr = addr->ipv6;
-		sa->ipv6.sin6_port = htons(port);
-	}
-	else
-	{
-		memset(&sa->storage, 0, sizeof(sa->storage));
-	}
-}
+void S6U_SocketAddress_init(union S6U_SocketAddress *sa, const struct S6M_Address *addr, uint16_t port);
 
-static inline ssize_t S6U_SocketAddress_size(const union S6U_SocketAddress *sa)
-{
-	if (sa->storage.ss_family == AF_INET)
-		return sizeof(struct sockaddr_in);
-	
-	if (sa->storage.ss_family == AF_INET6)
-		return sizeof(struct sockaddr_in6);
-	
-	return -1;
-}
+ssize_t S6U_SocketAddress_size(const union S6U_SocketAddress *sa);
 
-static inline struct S6M_Address S6U_SocketAddress_getAddress(const union S6U_SocketAddress *sa)
-{
-	struct S6M_Address ret;
-	
-	if (sa->storage.ss_family == AF_INET)
-	{
-		ret.type = SOCKS6_ADDR_IPV4;
-		ret.ipv4 = sa->ipv4.sin_addr;
-	}
-	else if (sa->storage.ss_family == AF_INET6)
-	{
-		ret.type = SOCKS6_ADDR_IPV6;
-		ret.ipv6 = sa->ipv6.sin6_addr;
-	}
-	else
-	{
-		ret.type = (enum SOCKS6AddressType)S6M_ADDRESS_INVALID_TYPE;
-	}
-	
-	return ret;
-}
+struct S6M_Address S6U_SocketAddress_getAddress(const union S6U_SocketAddress *sa);
 
-static inline uint16_t S6U_SocketAddress_getPort(const union S6U_SocketAddress *sa)
-{
-	if (sa->storage.ss_family == AF_INET)
-		return ntohs(sa->ipv4.sin_port);
-	else if (sa->storage.ss_family == AF_INET6)
-		return ntohs(sa->ipv6.sin6_port);
-	else
-		return 0;
-}
+uint16_t S6U_SocketAddress_getPort(const union S6U_SocketAddress *sa);
 
-static inline void S6U_SocketAddress_setPort(union S6U_SocketAddress *sa, uint16_t port)
-{
-	if (sa->storage.ss_family == AF_INET)
-		sa->ipv4.sin_port = htons(port);
-	else if (sa->storage.ss_family == AF_INET6)
-		sa->ipv6.sin6_port = htons(port);
-}
+void S6U_SocketAddress_setPort(union S6U_SocketAddress *sa, uint16_t port);
 
-static inline int S6U_SocketAddress_isValid(const union S6U_SocketAddress *sa)
-{
-	return S6U_SocketAddress_getPort(sa) != 0;
-}
+int S6U_SocketAddress_isValid(const union S6U_SocketAddress *sa);
 
 #ifdef __cplusplus
 }

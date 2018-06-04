@@ -3,9 +3,7 @@
 #include <exception>
 #include <socks6msg/socks6msg_address.hh>
 #include "socks6util.h"
-#include "socks6util_idempotence.hh"
-#include "socks6util_packet.hh"
-#include "socks6util_socket.hh"
+#include "socks6util.hh"
 
 using namespace std;
 using namespace S6U;
@@ -123,4 +121,106 @@ SOCKS6OperationReplyCode S6U_Socket_connectErrnoToReplyCode(int error)
 int S6U_Socket_getOriginalDestination(int fd, sockaddr_storage *destination)
 {
 	return Socket::getOriginalDestination(fd, destination);
+}
+
+static void S6M_Addr_Fill(S6M_Address *cAddr, const S6M::Address *cppAddr)
+{
+	cAddr->type = cppAddr->getType();
+	
+	switch (cppAddr->getType())
+	{
+	case SOCKS6_ADDR_IPV4:
+		cAddr->ipv4 = cppAddr->getIPv4();
+		break;
+		
+	case SOCKS6_ADDR_IPV6:
+		cAddr->ipv6 = cppAddr->getIPv6();
+		break;
+		
+	case SOCKS6_ADDR_DOMAIN:
+		cAddr->domain = const_cast<char *>(cppAddr->getDomain()->c_str());
+		if (cAddr->domain == NULL)
+			throw bad_alloc();
+		break;
+	}
+}
+
+//TODO: work around code duplication (these are originally from libsocks6msg)
+static S6M::Address S6M_Addr_Flush(const S6M_Address *cAddr)
+{
+	switch (cAddr->type)
+	{
+	case SOCKS6_ADDR_IPV4:
+		return S6M::Address(cAddr->ipv4);
+		
+	case SOCKS6_ADDR_IPV6:
+		return S6M::Address(cAddr->ipv6);
+		
+	case SOCKS6_ADDR_DOMAIN:
+		return S6M::Address(boost::shared_ptr<string>(new string(cAddr->domain)));
+	}
+	
+	throw S6M::InvalidFieldException();
+}
+
+void S6U_SocketAddress_init(S6U_SocketAddress *sa, const S6M_Address *addr, uint16_t port)
+{
+	SocketAddress *cppSA = reinterpret_cast<SocketAddress *>(sa);
+	
+	try
+	{
+		S6M::Address cppAddr = S6M_Addr_Flush(addr);
+		*cppSA = SocketAddress(cppAddr, port);
+	}
+	catch (exception)
+	{
+		memset(&sa->storage, 0, sizeof(sa->storage));
+	}
+}
+
+ssize_t S6U_SocketAddress_size(const S6U_SocketAddress *sa)
+{
+	const SocketAddress *cppSA = reinterpret_cast<const SocketAddress *>(sa);
+	
+	return cppSA->size();
+}
+
+S6M_Address S6U_SocketAddress_getAddress(const S6U_SocketAddress *sa)
+{
+	const SocketAddress *cppSA = reinterpret_cast<const SocketAddress *>(sa);
+	S6M_Address cAddr;
+	
+	try
+	{
+		S6M::Address cppAddr = cppSA->getAddress();
+		
+		S6M_Addr_Fill(&cAddr, &cppAddr);
+	}
+	catch (exception)
+	{
+		cAddr.type = (SOCKS6AddressType)S6M_ADDRESS_INVALID_TYPE;
+	}
+	
+	return cAddr;
+}
+
+uint16_t S6U_SocketAddress_getPort(const S6U_SocketAddress *sa)
+{
+	const SocketAddress *cppSA = reinterpret_cast<const SocketAddress *>(sa);
+	
+	return cppSA->getPort();
+}
+
+void S6U_SocketAddress_setPort(S6U_SocketAddress *sa, uint16_t port)
+{
+	SocketAddress *cppSA = reinterpret_cast<SocketAddress *>(sa);
+	
+	cppSA->setPort(port);
+}
+
+int S6U_SocketAddress_isValid(const S6U_SocketAddress *sa)
+{
+	const SocketAddress *cppSA = reinterpret_cast<const SocketAddress *>(sa);
+	
+	return cppSA->isValid();
 }

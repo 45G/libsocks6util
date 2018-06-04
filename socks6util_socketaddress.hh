@@ -34,12 +34,12 @@ union SocketAddress
 	}
 	
 	SocketAddress(const sockaddr_storage &storage)
-		: storage(stroage) {}
+		: storage(storage) {}
 	
 	SocketAddress(const sockaddr_in &ipv4)
 		: ipv4(ipv4) {}
 	
-	SocketAddress(const sockaddr_in &ipv6)
+	SocketAddress(const sockaddr_in6 &ipv6)
 		: ipv6(ipv6) {}
 	
 	SocketAddress(const S6M::Address &addr, uint16_t port)
