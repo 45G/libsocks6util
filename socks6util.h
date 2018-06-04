@@ -31,8 +31,8 @@ int S6U_Socket_tfoAttempted(int fd);
 int S6U_Socket_hasMPTCP(int fd);
 enum SOCKS6OperationReplyCode S6U_Socket_connectErrnoToReplyCode(int error);
 int S6U_Socket_getOriginalDestination(int fd, struct sockaddr_storage *destination);
-struct S6M_Address S6U_Socket_getAddress(const struct sockaddr_storage *socketAddress);
-uint16_t S6U_Socket_getPort(const struct sockaddr_storage *socketAddress);
+
+//TODO: bindings SocketAddress stuff
 
 #ifdef __cplusplus
 }
