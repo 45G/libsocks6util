@@ -70,7 +70,7 @@ static inline ssize_t S6U_SocketAddress_size(const union S6U_SocketAddress *sa)
 	return -1;
 }
 
-struct S6M_Address getAddress(const union S6U_SocketAddress *sa)
+static inline struct S6M_Address S6U_SocketAddress_getAddress(const union S6U_SocketAddress *sa)
 {
 	struct S6M_Address ret;
 	
