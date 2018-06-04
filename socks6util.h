@@ -34,9 +34,9 @@ int S6U_Socket_getOriginalDestination(int fd, struct sockaddr_storage *destinati
 
 union S6U_SocketAddress
 {
-	sockaddr_storage storage;
-	sockaddr_in ipv4;
-	sockaddr_in6 ipv6;
+	struct sockaddr_storage storage;
+	struct sockaddr_in ipv4;
+	struct sockaddr_in6 ipv6;
 };
 
 static inline void S6U_SocketAddress_init(union S6U_SocketAddress *sa, const S6M_Address *addr, uint16_t port)
