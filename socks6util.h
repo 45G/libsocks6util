@@ -40,15 +40,10 @@ union S6U_SocketAddress
 };
 
 void S6U_SocketAddress_init(union S6U_SocketAddress *sa, const struct S6M_Address *addr, uint16_t port);
-
 ssize_t S6U_SocketAddress_size(const union S6U_SocketAddress *sa);
-
 struct S6M_Address S6U_SocketAddress_getAddress(const union S6U_SocketAddress *sa);
-
 uint16_t S6U_SocketAddress_getPort(const union S6U_SocketAddress *sa);
-
 void S6U_SocketAddress_setPort(union S6U_SocketAddress *sa, uint16_t port);
-
 int S6U_SocketAddress_isValid(const union S6U_SocketAddress *sa);
 
 #ifdef __cplusplus
