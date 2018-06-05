@@ -105,19 +105,6 @@ int fastOpenConnect(int fd, const sockaddr_storage *destination, const void *buf
 {
 	socklen_t addrLen = reinterpret_cast<const SocketAddress *>(destination)->size();
 	
-#ifdef TCP_FASTOPEN_CONNECT
-	int rc;
-	static const int one = 1;
-	// tolerable error;
-	setsockopt(fd, SOL_TCP, TCP_FASTOPEN_CONNECT, &one, sizeof(one));
-	
-	rc = connect(fd, reinterpret_cast<const sockaddr *>(destination), addrLen);
-	if (rc < 0)
-		return rc;
-	
-	return send(fd, buffer, length, flags);
-#endif
-
 #ifdef MSG_FASTOPEN
 	return sendto(fd, buffer, length, flags, reinterpret_cast<const sockaddr *>(destination), addrLen);
 #endif
