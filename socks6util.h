@@ -31,7 +31,6 @@ int S6U_Socket_tfoAttempted(int fd);
 int S6U_Socket_hasMPTCP(int fd);
 enum SOCKS6OperationReplyCode S6U_Socket_connectErrnoToReplyCode(int error);
 int S6U_Socket_getOriginalDestination(int fd, struct sockaddr_storage *destination);
-int S6U_Socket_fastOpenConnect(int fd, const struct sockaddr_storage *destination, const void *buffer, size_t length, int flags);
 
 union S6U_SocketAddress
 {

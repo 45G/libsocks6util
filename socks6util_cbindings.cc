@@ -224,8 +224,3 @@ int S6U_SocketAddress_isValid(const S6U_SocketAddress *sa)
 	
 	return cppSA->isValid();
 }
-
-int S6U_Socket_fastOpenConnect(int fd, const sockaddr_storage *destination, const void *buffer, size_t length, int flags)
-{
-	return Socket::fastOpenConnect(fd, destination, buffer, length, flags);
-}

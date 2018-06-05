@@ -101,21 +101,6 @@ int getOriginalDestination(int fd, sockaddr_storage *destination)
 	return getsockopt(fd, SOL_IP, SO_ORIGINAL_DST, destination, &destLen);
 }
 
-int fastOpenConnect(int fd, const sockaddr_storage *destination, const void *buffer, size_t length, int flags)
-{
-	socklen_t addrLen = reinterpret_cast<const SocketAddress *>(destination)->size();
-	
-#ifdef MSG_FASTOPEN
-	return sendto(fd, buffer, length, flags, reinterpret_cast<const sockaddr *>(destination), addrLen);
-#endif
-	
-	(void)buffer; (void)length; (void)flags;
-	
-	return connect(fd, reinterpret_cast<const sockaddr *>(destination), addrLen);
-}
-
-
-
 }
 
 }

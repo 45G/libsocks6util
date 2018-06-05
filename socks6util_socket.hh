@@ -17,7 +17,6 @@ int tfoAttempted(int fd);
 int hasMPTCP(int fd);
 SOCKS6OperationReplyCode connectErrnoToReplyCode(int error);
 int getOriginalDestination(int fd, sockaddr_storage *destination);
-int fastOpenConnect(int fd, const sockaddr_storage *destination, const void *buffer, size_t length, int flags);
 
 }
 
