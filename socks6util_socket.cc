@@ -6,6 +6,7 @@
 #include <linux/netfilter_ipv4.h>
 #include "socks6util_socket.hh"
 #include "socks6util_packet.hh"
+#include "socks6util_socketaddress.hh"
 
 #ifndef TCP_SAVE_SYN
 #define TCP_SAVE_SYN 27
@@ -99,6 +100,34 @@ int getOriginalDestination(int fd, sockaddr_storage *destination)
 	
 	return getsockopt(fd, SOL_IP, SO_ORIGINAL_DST, destination, &destLen);
 }
+
+int fastOpenConnect(int fd, const sockaddr_storage *destination, const void *buffer, size_t length, int flags)
+{
+	socklen_t addrLen = reinterpret_cast<const SocketAddress *>(destination)->size();
+	
+#ifdef TCP_FASTOPEN_CONNECT
+	int rc;
+	static const int one = 1;
+	// tolerable error;
+	setsockopt(fd, SOL_TCP, TCP_FASTOPEN_CONNECT, &one, sizeof(one));
+	
+	rc = connect(fd, reinterpret_cast<const sockaddr *>(destination), addrLen);
+	if (rc < 0)
+		return rc;
+	
+	return send(fd, buffer, length, flags);
+#endif
+
+#ifdef MSG_FASTOPEN
+	return sendto(fd, buffer, length, flags, reinterpret_cast<const sockaddr *>(destination), addrLen);
+#endif
+	
+	(void)buffer; (void)length; (void)flags;
+	
+	return connect(fd, reinterpret_cast<const sockaddr *>(destination), addrLen);
+}
+
+
 
 }
 
