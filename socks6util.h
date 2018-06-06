@@ -37,6 +37,7 @@ union S6U_SocketAddress
 	struct sockaddr_storage storage;
 	struct sockaddr_in ipv4;
 	struct sockaddr_in6 ipv6;
+	struct sockaddr sockAddress;
 };
 
 void S6U_SocketAddress_init(union S6U_SocketAddress *sa, const struct S6M_Address *addr, uint16_t port);

@@ -13,6 +13,7 @@ union SocketAddress
 	sockaddr_storage storage;
 	sockaddr_in ipv4;
 	sockaddr_in6 ipv6;
+	sockaddr sockAddress;
 	
 	SocketAddress()
 	{
