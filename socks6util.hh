@@ -5,5 +5,6 @@
 #include "socks6util_packet.hh"
 #include "socks6util_socket.hh"
 #include "socks6util_socketaddress.hh"
+#include "socks6util_tfosafety.hh"
 
 #endif // SOCKS6UTIL_HH

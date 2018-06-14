@@ -47,6 +47,17 @@ uint16_t S6U_SocketAddress_getPort(const union S6U_SocketAddress *sa);
 void S6U_SocketAddress_setPort(union S6U_SocketAddress *sa, uint16_t port);
 int S6U_SocketAddress_isValid(const union S6U_SocketAddress *sa);
 
+enum
+{
+	S6U_TFOS_TFO_SYN     = 1 << 0,
+	S6U_TFOS_SPEND_TOKEN = 1 << 1,
+	S6U_TFOS_TLS         = 1 << 2,
+	S6U_TFOS_TLS_NO_0RTT = 1 << 3,
+	S6U_TFOS_NO_DATA     = 1 << 4,
+};
+
+int S6U_TFOSafety_tfoSafe(uint32_t flags);
+
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
