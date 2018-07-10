@@ -16,8 +16,12 @@
 #define TCP_SAVED_SYN 28
 #endif
 
+#ifndef MPTCP_SCHEDULER
+#define MPTCP_SCHEDULER 43
+#endif
+
 #ifndef MPTCP_PATH_MANAGER
-#define MPTCP_PATH_MANAGER 43
+#define MPTCP_PATH_MANAGER 44
 #endif
 
 #define BUF_SIZE 1500
@@ -99,6 +103,32 @@ int getOriginalDestination(int fd, sockaddr_storage *destination)
 	socklen_t destLen = sizeof(sockaddr_storage);
 	
 	return getsockopt(fd, SOL_IP, SO_ORIGINAL_DST, destination, &destLen);
+}
+
+int setMPTCPSched(int fd, SOCKS6MPTCPScheduler sched)
+{
+	if (sched == (SOCKS6MPTCPScheduler)0)
+		return 0;
+	
+	const char *schedStr;
+	
+	switch (sched)
+	{
+	case SOCKS6_MPTCP_SCHEDULER_DEFAULT:
+		schedStr = "default";
+		break;
+	case SOCKS6_MPTCP_SCHEDULER_RR:
+		schedStr = "roundrobin";
+		break;
+	case SOCKS6_MPTCP_SCHEDULER_REDUNDANT:
+		schedStr = "redundant";
+		break;
+	default:
+		errno = EINVAL;
+		return -1;
+	}
+	
+	return setsockopt(fd, SOL_TCP, MPTCP_SCHEDULER, schedStr, strlen(schedStr));
 }
 
 }

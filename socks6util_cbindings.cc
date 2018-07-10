@@ -123,6 +123,11 @@ int S6U_Socket_getOriginalDestination(int fd, sockaddr_storage *destination)
 	return Socket::getOriginalDestination(fd, destination);
 }
 
+int S6U_Socket_setMPTCPSched(int fd, enum SOCKS6MPTCPScheduler sched)
+{
+	return Socket::setMPTCPSched(fd, sched);
+}
+
 static void S6M_Addr_Fill(S6M_Address *cAddr, const S6M::Address *cppAddr)
 {
 	cAddr->type = cppAddr->getType();
