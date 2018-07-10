@@ -12,6 +12,8 @@ namespace S6U
 namespace Socket
 {
 
+static const in_addr QUAD_ZERO = { .s_addr = 0 };
+
 int saveSYN(int fd);
 int tfoAttempted(int fd);
 int hasMPTCP(int fd);

@@ -26,6 +26,7 @@ uint32_t S6U_TokenBank_getSize(S6U_TokenBank *ctx);
 
 int S6U_Packet_hasTFO(const uint8_t *ipPacket);
 
+static const struct in_addr S6U_SOCKET_QUAD_ZERO = { .s_addr = 0 };
 int S6U_Socket_saveSYN(int fd);
 int S6U_Socket_tfoAttempted(int fd);
 int S6U_Socket_hasMPTCP(int fd);
