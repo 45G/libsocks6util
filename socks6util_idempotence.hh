@@ -17,6 +17,9 @@ class TokenWallet
 	uint32_t size;
 	
 public:
+	TokenWallet()
+		: base(0), current(0), size(0) {}
+	
 	TokenWallet(uint32_t base, uint32_t size)
 		: base(base), current(base), size(size) {}
 	
