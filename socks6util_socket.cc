@@ -4,6 +4,7 @@
 #include <netinet/ip6.h>
 #include <netinet/tcp.h>
 #include <linux/netfilter_ipv4.h>
+#include <sys/ioctl.h>
 #include "socks6util_socket.hh"
 #include "socks6util_packet.hh"
 #include "socks6util_socketaddress.hh"
@@ -126,6 +127,16 @@ int setMPTCPSched(int fd, SOCKS6MPTCPScheduler sched)
 	}
 	
 	return setsockopt(fd, SOL_TCP, MPTCP_SCHEDULER, schedStr, strlen(schedStr));
+}
+
+int pendingRecv(int fd)
+{
+	int size;
+	int rc = ioctl(fd, FIONREAD, &size);
+	if (rc < 0)
+		return rc;
+	
+	return size;
 }
 
 }

@@ -33,6 +33,7 @@ int S6U_Socket_hasMPTCP(int fd);
 enum SOCKS6OperationReplyCode S6U_Socket_connectErrnoToReplyCode(int error);
 int S6U_Socket_getOriginalDestination(int fd, struct sockaddr_storage *destination);
 int S6U_Socket_setMPTCPSched(int fd, enum SOCKS6MPTCPScheduler sched);
+int S6U_Socket_pendingRecv(int fd);
 
 union S6U_SocketAddress
 {

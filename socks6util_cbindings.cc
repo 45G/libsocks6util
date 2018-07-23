@@ -128,6 +128,11 @@ int S6U_Socket_setMPTCPSched(int fd, enum SOCKS6MPTCPScheduler sched)
 	return Socket::setMPTCPSched(fd, sched);
 }
 
+int S6U_Socket_pendingRecv(int fd)
+{
+	return S6U::Socket::pendingRecv(fd);
+}
+
 static void S6M_Addr_Fill(S6M_Address *cAddr, const S6M::Address *cppAddr)
 {
 	cAddr->type = cppAddr->getType();

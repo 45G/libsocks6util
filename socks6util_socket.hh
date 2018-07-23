@@ -20,6 +20,7 @@ int hasMPTCP(int fd);
 SOCKS6OperationReplyCode connectErrnoToReplyCode(int error);
 int getOriginalDestination(int fd, sockaddr_storage *destination);
 int setMPTCPSched(int fd, SOCKS6MPTCPScheduler sched);
+int pendingRecv(int fd);
 
 }
 
