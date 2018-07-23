@@ -107,9 +107,6 @@ int getOriginalDestination(int fd, sockaddr_storage *destination)
 
 int setMPTCPSched(int fd, SOCKS6MPTCPScheduler sched)
 {
-	if (sched == (SOCKS6MPTCPScheduler)0)
-		return 0;
-	
 	const char *schedStr;
 	
 	switch (sched)

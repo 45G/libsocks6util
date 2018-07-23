@@ -36,6 +36,17 @@ void TokenWallet::updateWindow(uint32_t newBase, uint32_t newSize)
 		current = newBase;
 }
 
+void TokenWallet::updateWindow(const S6M::OptionSet *optionSet)
+{
+	uint32_t newSize = optionSet->getTokenWindowSize();
+	if (newSize == 0)
+		return;
+	
+	uint32_t newBase = optionSet->getTokenWindowBase();
+	
+	updateWindow(newBase, newSize);
+}
+
 uint32_t TokenWallet::remaining() const
 {
 	return base + size - current;

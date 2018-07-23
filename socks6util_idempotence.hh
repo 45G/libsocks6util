@@ -5,6 +5,7 @@
 #include <vector>
 #include <sys/types.h>
 #include <socks6msg/socks6.h>
+#include <socks6msg/socks6msg.hh>
 
 namespace S6U
 {
@@ -22,6 +23,8 @@ public:
 	bool extract(uint32_t *token);
 	
 	void updateWindow(uint32_t newBase, uint32_t newSize);
+	
+	void updateWindow(const S6M::OptionSet *optionSet);
 	
 	uint32_t remaining() const;
 };
