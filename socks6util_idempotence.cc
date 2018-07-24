@@ -78,4 +78,15 @@ SOCKS6TokenExpenditureCode TokenBank::withdraw(uint32_t token)
 	return SOCKS6_TOK_EXPEND_SUCCESS;
 }
 
+void TokenBank::renew()
+{
+	uint32_t newBase = base + spentTokens.size();
+	while (base != newBase)
+	{
+		spentTokens[index(base)] = false;
+		base++;
+		offset = (offset + 1) % spentTokens.size();
+	}
+}
+
 }

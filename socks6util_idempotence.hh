@@ -53,6 +53,8 @@ public:
 	
 	SOCKS6TokenExpenditureCode withdraw(uint32_t token);
 	
+	void renew();
+	
 	uint32_t getBase() const
 	{
 		return base;
@@ -62,7 +64,6 @@ public:
 	{
 		return spentTokens.size();
 	}
-	
 };
 
 }
