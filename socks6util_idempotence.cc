@@ -10,7 +10,7 @@ static inline bool modularLess(uint32_t x, uint32_t y)
 
 static bool modularLessEqual(uint32_t x, uint32_t y)
 {
-	return (x - y) < (1UL<<31);
+	return (y - x) < (1UL<<31);
 }
 
 bool TokenWallet::extract(uint32_t *token)
@@ -68,7 +68,7 @@ SOCKS6TokenExpenditureCode TokenBank::withdraw(uint32_t token)
 	
 	spentTokens[index(token)] = true;
 	
-	while (modularLess(base + highWatermark, token) || (modularLess(base + lowWatermark, token) && spentTokens[index(base)]))
+	while (modularLessEqual(base + highWatermark, token) || (modularLessEqual(base + lowWatermark, token) && spentTokens[index(base)]))
 	{
 		spentTokens[index(base)] = false;
 		base++;
