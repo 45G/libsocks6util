@@ -21,6 +21,7 @@ SOCKS6OperationReplyCode connectErrnoToReplyCode(int error);
 int getOriginalDestination(int fd, sockaddr_storage *destination);
 int setMPTCPSched(int fd, SOCKS6MPTCPScheduler sched);
 int pendingRecv(int fd);
+int setSegments(int fd, const std::vector<in6_addr> &forwardSegments, const std::vector<in6_addr> &returnSegments);
 
 }
 

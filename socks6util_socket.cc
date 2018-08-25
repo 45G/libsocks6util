@@ -5,6 +5,7 @@
 #include <netinet/tcp.h>
 #include <linux/netfilter_ipv4.h>
 #include <sys/ioctl.h>
+#include <linux/seg6.h>
 #include "socks6util_socket.hh"
 #include "socks6util_packet.hh"
 #include "socks6util_socketaddress.hh"
@@ -137,6 +138,38 @@ int pendingRecv(int fd)
 		return rc;
 	
 	return size;
+}
+
+//TODO: C version
+/* code adapted from https://github.com/jadinm/sigcomm2018-hackathon/blob/master/socketapi/socketapi.c
+ * (c) Mathieu Jadin
+ */
+int setSegments(int fd, const std::vector<in6_addr> &forwardSegments, const std::vector<in6_addr> &returnSegments)
+{
+	(void)returnSegments;
+
+	size_t srSize = sizeof(ipv6_sr_hdr) + (forwardSegments.size() + 1) * sizeof(in6_addr);
+	ipv6_sr_hdr *sr = reinterpret_cast<ipv6_sr_hdr *>(malloc(srSize));
+	if (!sr)
+		return -1;
+
+	sr->nexthdr = 0;
+	sr->hdrlen = 2 * (forwardSegments.size() + 1);
+	sr->type = 4;
+	sr->segments_left = forwardSegments.size();
+	sr->first_segment = sr->segments_left;
+	sr->flags = 0;
+	sr->tag = 0;
+	memset(&sr->segments[0], 0, sizeof(struct in6_addr));
+
+	for (size_t i = 0; i < forwardSegments.size(); i++)
+		sr->segments[forwardSegments.size() - i] = forwardSegments[i];
+
+	int ret = setsockopt(fd, IPPROTO_IPV6, IPV6_RTHDR, sr, srSize);
+
+	free(sr);
+
+	return ret;
 }
 
 }
