@@ -100,7 +100,6 @@ SOCKS6OperationReplyCode connectErrnoToReplyCode(int error)
 
 int getOriginalDestination(int fd, sockaddr_storage *destination)
 {
-	//TODO: check if this works for IPv6
 	socklen_t destLen = sizeof(sockaddr_storage);
 	
 	return getsockopt(fd, SOL_IP, SO_ORIGINAL_DST, destination, &destLen);
