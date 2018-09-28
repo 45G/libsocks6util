@@ -20,6 +20,11 @@ union SocketAddress
 		memset(&storage, 0, sizeof(storage));
 	}
 	
+	SocketAddress(const SocketAddress &other)
+	{
+		storage = other.storage;
+	}
+	
 	SocketAddress(in_addr ipv4a, uint16_t port = 0)
 	{
 		ipv4.sin_family = AF_INET;
