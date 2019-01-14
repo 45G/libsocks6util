@@ -25,7 +25,7 @@
 #define MPTCP_PATH_MANAGER 44
 #endif
 
-#define BUF_SIZE 1500
+#define BUF_SIZE 4096
 
 namespace S6U
 {
