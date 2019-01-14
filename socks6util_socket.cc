@@ -40,7 +40,7 @@ int saveSYN(int fd)
 	return setsockopt(fd, SOL_TCP, TCP_SAVE_SYN, &one, sizeof(one));
 }
 
-int tfoAttempted(int fd)
+ssize_t tfoPayloadSize(int fd)
 {
 	uint8_t buf[BUF_SIZE];
 	socklen_t bufSize = BUF_SIZE;
@@ -49,7 +49,7 @@ int tfoAttempted(int fd)
 	if (err < 0)
 		return err;
 	
-	return Packet::hasTFO(buf);
+	return Packet::tfoPayloadSize(buf);
 }
 
 int hasMPTCP(int fd)

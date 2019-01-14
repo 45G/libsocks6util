@@ -102,7 +102,7 @@ uint32_t S6U_TokenBank_getSize(S6U_TokenBank *ctx)
 
 int S6U_Packet_hasTFO(const uint8_t *ipPacket)
 {
-	return (int)Packet::hasTFO(ipPacket);
+	return (int)Packet::tfoPayloadSize(ipPacket);
 }
 
 int S6U_Socket_saveSYN(int fd)
@@ -110,9 +110,9 @@ int S6U_Socket_saveSYN(int fd)
 	return Socket::saveSYN(fd);
 }
 
-int S6U_Socket_tfoAttempted(int fd)
+ssize_t S6U_Socket_tfoAttempted(int fd)
 {
-	return Socket::tfoAttempted(fd);
+	return Socket::tfoPayloadSize(fd);
 }
 
 int S6U_Socket_hasMPTCP(int fd)

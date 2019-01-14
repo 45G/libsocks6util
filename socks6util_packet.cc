@@ -22,7 +22,7 @@ namespace S6U
 namespace Packet
 {
 
-bool hasTFO(const uint8_t *ipPacket)
+size_t tfoPayloadSize(const uint8_t *ipPacket)
 {
 	const tcphdr *tcpHeader;
 	const ip *ipHeader = (const ip *)ipPacket;
@@ -32,7 +32,7 @@ bool hasTFO(const uint8_t *ipPacket)
 	else if (ipHeader->ip_v == 6)
 		tcpHeader = (const tcphdr *)(ipPacket + sizeof(ip6_hdr));
 	else
-		return false; //IPv7 is here!
+		return 0; //IPv7 is here!
 	
 	/* sanity assured by the (Linux) kernel up to here; options can still be spurious */
 	
@@ -42,9 +42,9 @@ bool hasTFO(const uint8_t *ipPacket)
 	for (int i = 0; i < optionsLen - 1;)
 	{
 		if (options[i] == TCPOPT_EOL)
-			return false;
+			return 0;
 		if (options[i] == TCPOPT_TFO)
-			return true;
+			return ipHeader->ip_len - ipHeader->ip_hl * 4 - tcpHeader->doff * 4;
 		if (options[i] == TCPOPT_NOP)
 		{
 			i++;
@@ -53,11 +53,11 @@ bool hasTFO(const uint8_t *ipPacket)
 		
 		int optlen = options[i + 1];
 		if (optlen < 2)
-			return false;
+			return 0;
 		i += optlen;
 	}
 	
-	return false;
+	return 0;
 }
 
 }

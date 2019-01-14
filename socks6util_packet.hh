@@ -9,7 +9,7 @@ namespace S6U
 namespace Packet
 {
 
-bool hasTFO(const uint8_t *ipPacket);
+size_t tfoPayloadSize(const uint8_t *ipPacket);
 
 }
 

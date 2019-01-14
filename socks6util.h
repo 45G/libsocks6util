@@ -29,7 +29,7 @@ int S6U_Packet_hasTFO(const uint8_t *ipPacket);
 
 static const struct in_addr S6U_SOCKET_QUAD_ZERO = { .s_addr = 0 };
 int S6U_Socket_saveSYN(int fd);
-int S6U_Socket_tfoAttempted(int fd);
+ssize_t S6U_Socket_tfoAttempted(int fd);
 int S6U_Socket_hasMPTCP(int fd);
 enum SOCKS6OperationReplyCode S6U_Socket_connectErrnoToReplyCode(int error);
 int S6U_Socket_getOriginalDestination(int fd, struct sockaddr_storage *destination);
