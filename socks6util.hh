@@ -1,10 +1,10 @@
 #ifndef SOCKS6UTIL_HH
 #define SOCKS6UTIL_HH
 
-#include "socks6util_idempotence.hh"
-#include "socks6util_packet.hh"
-#include "socks6util_socket.hh"
-#include "socks6util_socketaddress.hh"
-#include "socks6util_tfosafety.hh"
+#include "idempotence.hh"
+#include "packet.hh"
+#include "socket.hh"
+#include "socketaddress.hh"
+#include "tfosafety.hh"
 
 #endif // SOCKS6UTIL_HH

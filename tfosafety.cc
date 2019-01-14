@@ -1,4 +1,4 @@
-#include "socks6util_tfosafety.hh"
+#include "tfosafety.hh"
 
 namespace S6U
 {

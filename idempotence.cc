@@ -1,4 +1,4 @@
-#include "socks6util_idempotence.hh"
+#include "idempotence.hh"
 
 namespace S6U
 {

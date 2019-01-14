@@ -5,9 +5,9 @@
 #include <netinet/tcp.h>
 #include <linux/netfilter_ipv4.h>
 #include <sys/ioctl.h>
-#include "socks6util_socket.hh"
-#include "socks6util_packet.hh"
-#include "socks6util_socketaddress.hh"
+#include "socket.hh"
+#include "packet.hh"
+#include "socketaddress.hh"
 
 #ifndef TCP_SAVE_SYN
 #define TCP_SAVE_SYN 27

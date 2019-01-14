@@ -13,20 +13,20 @@ CONFIG += c++11
 CONFIG += c99
 
 SOURCES += \
-    socks6util_packet.cc \
-    socks6util_idempotence.cc \
-    socks6util_socket.cc \
-    socks6util_cbindings.cc \
-    socks6util_tfosafety.cc
+    cbindings.cc \
+    idempotence.cc \
+    packet.cc \
+    socket.cc \
+    tfosafety.cc
 
 HEADERS += \
-    socks6util_idempotence.hh \
     socks6util.h \
     socks6util.hh \
-    socks6util_packet.hh \
-    socks6util_socket.hh \
-    socks6util_socketaddress.hh \
-    socks6util_tfosafety.hh
+    idempotence.hh \
+    packet.hh \
+    socket.hh \
+    socketaddress.hh \
+    tfosafety.hh
 
 unix {
     headers.path = /usr/local/include/socks6util

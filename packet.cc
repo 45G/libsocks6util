@@ -14,7 +14,7 @@
 #define TCPOPT_TFO 34
 #endif
 
-#include "socks6util_packet.hh"
+#include "packet.hh"
 
 namespace S6U
 {
