@@ -3,7 +3,7 @@
 
 #include <string.h>
 #include <netinet/in.h>
-#include <socks6msg/socks6msg_address.hh>
+#include <socks6msg/address.hh>
 
 namespace S6U
 {

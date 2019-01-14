@@ -1,7 +1,7 @@
 #include <string.h>
 #include <errno.h>
 #include <exception>
-#include <socks6msg/socks6msg_address.hh>
+#include <socks6msg/address.hh>
 #include "socks6util.h"
 #include "socks6util.hh"
 
@@ -174,7 +174,7 @@ static S6M::Address S6M_Addr_Flush(const S6M_Address *cAddr)
 		return S6M::Address(cAddr->ipv6);
 		
 	case SOCKS6_ADDR_DOMAIN:
-		return S6M::Address(boost::shared_ptr<string>(new string(cAddr->domain)));
+		return S6M::Address(std::shared_ptr<string>(new string(cAddr->domain)));
 	}
 	
 	throw S6M::InvalidFieldException();
@@ -215,7 +215,8 @@ S6M_Address S6U_SocketAddress_getAddress(const S6U_SocketAddress *sa)
 	}
 	catch (exception)
 	{
-		cAddr.type = (SOCKS6AddressType)S6M_ADDRESS_INVALID_TYPE;
+		cAddr.type = SOCKS6_ADDR_IPV4;
+		cAddr.ipv4.s_addr = 0;
 	}
 	
 	return cAddr;

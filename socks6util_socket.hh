@@ -4,7 +4,7 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <socks6msg/socks6.h>
-#include <socks6msg/socks6msg_address.hh>
+#include <socks6msg/address.hh>
 
 namespace S6U
 {

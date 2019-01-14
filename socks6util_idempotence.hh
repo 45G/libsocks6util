@@ -4,7 +4,6 @@
 #include <stdint.h>
 #include <vector>
 #include <sys/types.h>
-#include <socks6msg/socks6.h>
 #include <socks6msg/socks6msg.hh>
 
 namespace S6U
