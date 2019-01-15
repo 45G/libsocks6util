@@ -243,7 +243,4 @@ int S6U_SocketAddress_isValid(const S6U_SocketAddress *sa)
 	return cppSA->isValid();
 }
 
-int S6U_TFOSafety_tfoSafe(uint32_t flags)
-{
-	return (int)TFOSafety::tfoSafe(flags);
-}
+//TODO: binding for request safety

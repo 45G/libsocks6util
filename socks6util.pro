@@ -17,7 +17,7 @@ SOURCES += \
     idempotence.cc \
     packet.cc \
     socket.cc \
-    tfosafety.cc
+    requestsafety.cc
 
 HEADERS += \
     socks6util.h \
@@ -26,7 +26,7 @@ HEADERS += \
     packet.hh \
     socket.hh \
     socketaddress.hh \
-    tfosafety.hh
+    requestsafety.hh
 
 unix {
     headers.path = /usr/local/include/socks6util
