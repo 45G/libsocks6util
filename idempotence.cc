@@ -8,7 +8,7 @@ static inline bool modularLess(uint32_t x, uint32_t y)
 	return 0 < (y - x) && (y - x) < (1UL << 31);
 }
 
-static bool modularLessEqual(uint32_t x, uint32_t y)
+static inline bool modularLessEqual(uint32_t x, uint32_t y)
 {
 	return (y - x) < (1UL << 31);
 }
