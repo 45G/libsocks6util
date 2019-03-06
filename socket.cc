@@ -111,11 +111,8 @@ int setMPTCPSched(int fd, SOCKS6MPTCPScheduler sched)
 	
 	switch (sched)
 	{
-	case SOCKS6_MPTCP_SCHEDULER_DEFAULT:
+	case SOCKS6_MPTCP_SCHEDULER_LOWEST_LATENCY_FIRST:
 		schedStr = "default";
-		break;
-	case SOCKS6_MPTCP_SCHEDULER_RR:
-		schedStr = "roundrobin";
 		break;
 	case SOCKS6_MPTCP_SCHEDULER_REDUNDANT:
 		schedStr = "redundant";
