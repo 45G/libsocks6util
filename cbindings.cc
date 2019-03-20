@@ -177,7 +177,7 @@ static S6M::Address S6M_Addr_Flush(const S6M_Address *cAddr)
 		return S6M::Address(std::shared_ptr<string>(new string(cAddr->domain)));
 	}
 	
-	throw S6M::InvalidFieldException();
+	throw invalid_argument("Bad address type");
 }
 
 void S6U_SocketAddress_init(S6U_SocketAddress *sa, const S6M_Address *addr, uint16_t port)
