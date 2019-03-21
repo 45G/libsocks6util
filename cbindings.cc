@@ -23,7 +23,7 @@ S6U_TokenWallet *S6U_TokenWallet_create(uint32_t base, uint32_t size)
 	}
 	S6U_CATCH;
 	
-	return NULL;
+	return nullptr;
 }
 
 void S6U_TokenWallet_destroy(S6U_TokenWallet *ctx)
@@ -62,7 +62,7 @@ S6U_TokenBank *S6U_TokenBank_create(uint32_t base, uint32_t size, uint32_t lowWa
 	}
 	S6U_CATCH;
 	
-	return NULL;
+	return nullptr;
 }
 
 void S6U_TokenBank_destroy(S6U_TokenBank *ctx)
@@ -156,7 +156,7 @@ static void S6M_Addr_Fill(S6M_Address *cAddr, const S6M::Address *cppAddr)
 		
 	case SOCKS6_ADDR_DOMAIN:
 		cAddr->domain = const_cast<char *>(cppAddr->getDomain()->c_str());
-		if (cAddr->domain == NULL)
+		if (cAddr->domain == nullptr)
 			throw bad_alloc();
 		break;
 	}
