@@ -130,11 +130,6 @@ int S6U_Socket_getOriginalDestination(int fd, sockaddr_storage *destination)
 	return Socket::getOriginalDestination(fd, destination);
 }
 
-int S6U_Socket_setMPTCPSched(int fd, enum SOCKS6MPTCPScheduler sched)
-{
-	return Socket::setMPTCPSched(fd, sched);
-}
-
 int S6U_Socket_pendingRecv(int fd)
 {
 	return S6U::Socket::pendingRecv(fd);
@@ -174,7 +169,7 @@ static S6M::Address S6M_Addr_Flush(const S6M_Address *cAddr)
 		return S6M::Address(cAddr->ipv6);
 		
 	case SOCKS6_ADDR_DOMAIN:
-		return S6M::Address(std::shared_ptr<string>(new string(cAddr->domain)));
+		return S6M::Address(string(cAddr->domain));
 	}
 	
 	throw invalid_argument("Bad address type");

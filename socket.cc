@@ -105,26 +105,6 @@ int getOriginalDestination(int fd, sockaddr_storage *destination)
 	return getsockopt(fd, SOL_IP, SO_ORIGINAL_DST, destination, &destLen);
 }
 
-int setMPTCPSched(int fd, SOCKS6MPTCPScheduler sched)
-{
-	const char *schedStr;
-	
-	switch (sched)
-	{
-	case SOCKS6_MPTCP_SCHEDULER_LOWEST_LATENCY_FIRST:
-		schedStr = "default";
-		break;
-	case SOCKS6_MPTCP_SCHEDULER_REDUNDANT:
-		schedStr = "redundant";
-		break;
-	default:
-		errno = EINVAL;
-		return -1;
-	}
-	
-	return setsockopt(fd, SOL_TCP, MPTCP_SCHEDULER, schedStr, strlen(schedStr));
-}
-
 int pendingRecv(int fd)
 {
 	int size;
