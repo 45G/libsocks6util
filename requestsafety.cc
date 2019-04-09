@@ -9,7 +9,7 @@ namespace RequestSafety
 Recommendation recommend(const S6M::Request &request, bool tls, size_t totalData)
 {
 	/* if idempotent, anything goes */
-	if (request.getOptionSet()->hasToken())
+	if (request.getOptionSet()->idempotence()->getToken())
 		return Recommendation(SIZE_MAX, tls, false);
 
 	/* TLS early data can be maliciously (and heavily) replayed; TFO is safe without early data */
@@ -17,7 +17,8 @@ Recommendation recommend(const S6M::Request &request, bool tls, size_t totalData
 		return Recommendation(SIZE_MAX, false, true);
 
 	/* check for sensitive options */
-	bool sensitiveRequest = request.getOptionSet()->requestedTokenWindow(); //TODO: session request
+	bool sensitiveRequest = request.getOptionSet()->session()->requested() ||
+		request.getOptionSet()->idempotence()->requestedSize() > 0;
 	if (sensitiveRequest)
 		return Recommendation(0, false, true);
 
