@@ -5,7 +5,7 @@ namespace S6U
 
 static inline bool modularLess(uint32_t x, uint32_t y)
 {
-	return 0 < (y - x) && (y - x) < (1UL << 31);
+	return x != y && (y - x) < (1UL << 31);
 }
 
 static inline bool modularLessEqual(uint32_t x, uint32_t y)
@@ -61,10 +61,10 @@ TokenBank::TokenBank(uint32_t base, uint32_t size, uint32_t lowWatermark, uint32
 SOCKS6TokenExpenditureCode TokenBank::withdraw(uint32_t token)
 {
 	if (!(modularLessEqual(base, token) && modularLess(token, base + getSize())))
-		return SOCKS6_TOK_EXPEND_OUT_OF_WND;
+		return SOCKS6_TOK_EXPEND_FAILURE;
 	
 	if (spentTokens[index(token)])
-		return SOCKS6_TOK_EXPEND_DUPLICATE;
+		return SOCKS6_TOK_EXPEND_FAILURE;
 	
 	spentTokens[index(token)] = true;
 	
