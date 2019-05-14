@@ -72,7 +72,7 @@ void S6U_TokenBank_destroy(S6U_TokenBank *ctx)
 	delete bank;
 }
 
-SOCKS6TokenExpenditureCode S6U_TokenBank_withdraw(S6U_TokenBank *ctx, uint32_t token)
+int S6U_TokenBank_withdraw(S6U_TokenBank *ctx, uint32_t token)
 {
 	TokenBank *bank = reinterpret_cast<TokenBank *>(ctx);
 	

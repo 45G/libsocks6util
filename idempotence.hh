@@ -50,7 +50,7 @@ class TokenBank
 public:
 	TokenBank(uint32_t base, uint32_t size, uint32_t lowWatermark, uint32_t highWatermark);
 	
-	SOCKS6TokenExpenditureCode withdraw(uint32_t token);
+	bool withdraw(uint32_t token);
 	
 	void renew();
 	

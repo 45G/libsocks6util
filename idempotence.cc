@@ -58,13 +58,13 @@ TokenBank::TokenBank(uint32_t base, uint32_t size, uint32_t lowWatermark, uint32
 	spentTokens.resize(size, 0);
 }
 
-SOCKS6TokenExpenditureCode TokenBank::withdraw(uint32_t token)
+bool TokenBank::withdraw(uint32_t token)
 {
 	if (!(modularLessEqual(base, token) && modularLess(token, base + getSize())))
-		return SOCKS6_TOK_EXPEND_FAILURE;
+		return false;
 	
 	if (spentTokens[index(token)])
-		return SOCKS6_TOK_EXPEND_FAILURE;
+		return false;
 	
 	spentTokens[index(token)] = true;
 	
@@ -75,7 +75,7 @@ SOCKS6TokenExpenditureCode TokenBank::withdraw(uint32_t token)
 		offset = (offset + 1) % spentTokens.size();
 	}
 	
-	return SOCKS6_TOK_EXPEND_SUCCESS;
+	return true;
 }
 
 void TokenBank::renew()
