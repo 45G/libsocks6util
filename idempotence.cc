@@ -42,7 +42,7 @@ void TokenWallet::updateWindow(const S6M::OptionSet *optionSet)
 	if (newSize == 0)
 		return;
 	
-	uint32_t newBase = optionSet->idempotence.advertisedBase().get();
+	uint32_t newBase = optionSet->idempotence.advertisedBase();
 	
 	updateWindow(newBase, newSize);
 }
