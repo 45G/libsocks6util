@@ -37,7 +37,13 @@ int S6U_TokenWallet_extract(S6U_TokenWallet *ctx, uint32_t *token)
 {
 	TokenWallet *wallet = reinterpret_cast<TokenWallet *>(ctx);
 	
-	return wallet->extract(token);
+	auto extracted = wallet->extract();
+	if (!extracted)
+		return 0;
+	
+	*token = extracted.get();
+	
+	return 1;
 }
 
 void S6U_TokenWallet_updateWindow(S6U_TokenWallet *ctx, uint32_t newBase, uint32_t newSize)

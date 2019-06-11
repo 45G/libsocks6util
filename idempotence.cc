@@ -13,15 +13,12 @@ static inline bool modularLessEqual(uint32_t x, uint32_t y)
 	return (y - x) < (1UL << 31);
 }
 
-bool TokenWallet::extract(uint32_t *token)
+boost::optional<uint32_t> TokenWallet::extract()
 {
 	if (!modularLess(current, base + size))
-		return false;
+		return {};
 	
-	*token = current;
-	current++;
-	
-	return true;
+	return { current++ };
 }
 
 void TokenWallet::updateWindow(uint32_t newBase, uint32_t newSize)
