@@ -17,8 +17,7 @@ Recommendation recommend(const S6M::Request &request, bool tls, size_t totalData
 		return Recommendation(SIZE_MAX, false, true);
 
 	/* check for sensitive options */
-	bool sensitiveRequest = request.options.session.requested() ||
-		request.options.idempotence.requestedSize() > 0;
+	bool sensitiveRequest = request.options.session.requested();
 	if (sensitiveRequest)
 		return Recommendation(0, false, true);
 
