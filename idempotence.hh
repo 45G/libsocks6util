@@ -53,8 +53,6 @@ public:
 	
 	bool withdraw(uint32_t token);
 	
-	void renew();
-	
 	uint32_t getBase() const
 	{
 		return base;

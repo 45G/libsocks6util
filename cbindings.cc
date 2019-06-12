@@ -85,13 +85,6 @@ int S6U_TokenBank_withdraw(S6U_TokenBank *ctx, uint32_t token)
 	return bank->withdraw(token);
 }
 
-void S6U_TokenBank_renew(S6U_TokenBank *ctx)
-{
-	TokenBank *bank = reinterpret_cast<TokenBank *>(ctx);
-	
-	bank->renew();
-}
-
 uint32_t S6U_TokenBank_getBase(S6U_TokenBank *ctx)
 {
 	TokenBank *bank = reinterpret_cast<TokenBank *>(ctx);

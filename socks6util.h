@@ -21,7 +21,6 @@ uint32_t S6U_TokenWallet_remaining(S6U_TokenWallet *ctx);
 S6U_TokenBank *S6U_TokenBank_create(uint32_t base, uint32_t size, uint32_t lowWatermark, uint32_t highWatermark);
 void S6U_TokenBank_destroy(S6U_TokenBank *ctx);
 int S6U_TokenBank_withdraw(S6U_TokenBank *ctx, uint32_t token);
-void S6U_TokenBank_renew(S6U_TokenBank *ctx);
 uint32_t S6U_TokenBank_getBase(S6U_TokenBank *ctx);
 uint32_t S6U_TokenBank_getSize(S6U_TokenBank *ctx);
 
