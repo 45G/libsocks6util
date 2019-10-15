@@ -150,7 +150,7 @@ static void S6M_Addr_Fill(S6M_Address *cAddr, const S6M::Address *cppAddr)
 		
 	case SOCKS6_ADDR_DOMAIN:
 		cAddr->domain = const_cast<char *>(cppAddr->getDomain()->c_str());
-		if (cAddr->domain == nullptr)
+		if (!cAddr->domain)
 			throw bad_alloc();
 		break;
 	}
