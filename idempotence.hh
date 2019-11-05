@@ -36,8 +36,7 @@ class TokenBank
 {
 	uint32_t base;
 	uint32_t offset;
-	
-	uint32_t backlog;
+
 	uint32_t lowWatermark;
 	uint32_t highWatermark;
 	
