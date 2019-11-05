@@ -25,7 +25,7 @@ public:
 	
 	boost::optional<uint32_t> extract();
 	
-	void updateWindow(uint32_t newBase, uint32_t newSize);
+	void updateWindow(std::pair<uint32_t, uint32_t> window);
 	
 	void updateWindow(const S6M::OptionSet *optionSet);
 	

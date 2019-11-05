@@ -21,16 +21,16 @@ boost::optional<uint32_t> TokenWallet::extract()
 	return { current++ };
 }
 
-void TokenWallet::updateWindow(uint32_t newBase, uint32_t newSize)
+void TokenWallet::updateWindow(std::pair<uint32_t, uint32_t> window)
 {
-	if (modularLess(newBase, base))
+	if (modularLess(window.first, base))
 		return;
 	
-	base = newBase;
-	size = newSize;
+	base = window.first;
+	size = window.second;
 	
-	if (modularLess(current, newBase))
-		current = newBase;
+	if (modularLess(current, window.first))
+		current = window.first;
 }
 
 void TokenWallet::updateWindow(const S6M::OptionSet *optionSet)
@@ -39,7 +39,7 @@ void TokenWallet::updateWindow(const S6M::OptionSet *optionSet)
 	if (window.second == 0)
 		return;
 	
-	updateWindow(window.first, window.second);
+	updateWindow(window);
 }
 
 uint32_t TokenWallet::remaining() const

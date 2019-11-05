@@ -50,7 +50,7 @@ void S6U_TokenWallet_updateWindow(S6U_TokenWallet *ctx, uint32_t newBase, uint32
 {
 	TokenWallet *wallet = reinterpret_cast<TokenWallet *>(ctx);
 	
-	wallet->updateWindow(newBase, newSize);
+	wallet->updateWindow({ newBase, newSize });
 }
 
 uint32_t S6U_TokenWallet_remaining(S6U_TokenWallet *ctx)
