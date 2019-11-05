@@ -41,7 +41,7 @@ int S6U_TokenWallet_extract(S6U_TokenWallet *ctx, uint32_t *token)
 	if (!extracted)
 		return 0;
 	
-	*token = extracted.get();
+	*token = extracted.value();
 	
 	return 1;
 }

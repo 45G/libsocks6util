@@ -9,7 +9,7 @@ TEMPLATE = lib
 CONFIG += staticlib
 CONFIG -= qt
 CONFIG -= app_bundle
-CONFIG += c++11
+CONFIG += c++17
 CONFIG += c99
 
 SOURCES += \

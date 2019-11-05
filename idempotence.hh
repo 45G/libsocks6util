@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <vector>
 #include <sys/types.h>
-#include <boost/optional.hpp>
+#include <optional>
 #include <socks6msg/socks6msg.hh>
 
 namespace S6U
@@ -23,7 +23,7 @@ public:
 	TokenWallet(std::pair<uint32_t, uint32_t> win)
 		: base(win.first), current(base), size(win.second) {}
 	
-	boost::optional<uint32_t> extract();
+	std::optional<uint32_t> extract();
 	
 	void updateWindow(std::pair<uint32_t, uint32_t> window);
 	

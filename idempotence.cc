@@ -1,5 +1,7 @@
 #include "idempotence.hh"
 
+using namespace std;
+
 namespace S6U
 {
 
@@ -13,7 +15,7 @@ static inline bool modularLessEqual(uint32_t x, uint32_t y)
 	return (y - x) < (1UL << 31);
 }
 
-boost::optional<uint32_t> TokenWallet::extract()
+optional<uint32_t> TokenWallet::extract()
 {
 	if (!modularLess(current, base + size))
 		return {};

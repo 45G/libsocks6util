@@ -4,8 +4,7 @@ Utility library for SOCKS 6 apps
 ## Building the library
 
 You will need the following packages:
- * qt4-qmake
- * Boost (libboost-dev(el))
+ * qt5-qmake
  * libsocks6msg (you can get it here: [https://github.com/45G/libsocks6msg])
  
 Afterwards, simply run:
