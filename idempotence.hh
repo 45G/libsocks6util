@@ -13,15 +13,15 @@ namespace S6U
 class TokenWallet
 {
 	uint32_t base;
-	uint32_t current;
 	uint32_t size;
+	uint32_t current;
 	
 public:
 	TokenWallet()
-		: base(0), current(0), size(0) {}
+		: base(0), size(0), current(0) {}
 	
 	TokenWallet(std::pair<uint32_t, uint32_t> win)
-		: base(win.first), current(base), size(win.second) {}
+		: base(win.first), size(win.second), current(base) {}
 	
 	std::optional<uint32_t> extract();
 	
