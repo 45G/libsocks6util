@@ -22,7 +22,7 @@ Recommendation recommend(const S6M::Request &request, bool tls, size_t totalData
 		return Recommendation(0, false, true);
 
 	/* only recommend using token if totalData exceeds TFO payload */
-	size_t tfoTolerant = request.options.stack.tfo.get(SOCKS6_STACK_LEG_PROXY_REMOTE).get_value_or(0);
+	size_t tfoTolerant = request.options.stack.tfo.get(SOCKS6_STACK_LEG_PROXY_REMOTE).value_or(0);
 	return Recommendation(request.packedSize() + tfoTolerant, false, tfoTolerant < totalData);
 }
 
