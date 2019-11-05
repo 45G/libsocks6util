@@ -17,22 +17,21 @@ static inline bool modularLessEqual(uint32_t x, uint32_t y)
 
 optional<uint32_t> TokenWallet::extract()
 {
-	if (!modularLess(current, base + size))
+	if (!modularLess(current, win.first + win.second))
 		return {};
 	
 	return { current++ };
 }
 
-void TokenWallet::updateWindow(std::pair<uint32_t, uint32_t> window)
+void TokenWallet::updateWindow(std::pair<uint32_t, uint32_t> newWin)
 {
-	if (modularLess(window.first, base))
+	if (modularLess(newWin.first, win.first))
 		return;
 	
-	base = window.first;
-	size = window.second;
+	win = newWin;
 	
-	if (modularLess(current, window.first))
-		current = window.first;
+	if (modularLess(current, newWin.first))
+		current = newWin.first;
 }
 
 void TokenWallet::updateWindow(const S6M::OptionSet *optionSet)
@@ -46,7 +45,7 @@ void TokenWallet::updateWindow(const S6M::OptionSet *optionSet)
 
 uint32_t TokenWallet::remaining() const
 {
-	return base + size - current;
+	return win.first + win.second - current;
 }
 
 TokenBank::TokenBank(std::pair<uint32_t, uint32_t> win, uint32_t lowWatermark, uint32_t highWatermark)

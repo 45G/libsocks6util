@@ -12,20 +12,19 @@ namespace S6U
 
 class TokenWallet
 {
-	uint32_t base;
-	uint32_t size;
+	std::pair<uint32_t, uint32_t> win;
 	uint32_t current;
 	
 public:
 	TokenWallet()
-		: base(0), size(0), current(0) {}
+		: win { 0, 0 }, current(0) {}
 	
 	TokenWallet(std::pair<uint32_t, uint32_t> win)
-		: base(win.first), size(win.second), current(base) {}
+		: win(win), current(win.first) {}
 	
 	std::optional<uint32_t> extract();
 	
-	void updateWindow(std::pair<uint32_t, uint32_t> window);
+	void updateWindow(std::pair<uint32_t, uint32_t> newWin);
 	
 	void updateWindow(const S6M::OptionSet *optionSet);
 	
