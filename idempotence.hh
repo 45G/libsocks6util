@@ -49,18 +49,13 @@ class TokenBank
 	}
 
 public:
-	TokenBank(uint32_t base, uint32_t size, uint32_t lowWatermark, uint32_t highWatermark);
+	TokenBank(std::pair<uint32_t, uint32_t> win, uint32_t lowWatermark, uint32_t highWatermark);
 	
 	bool withdraw(uint32_t token);
 	
-	uint32_t getBase() const
+	std::pair<uint32_t, uint32_t> getWindow()
 	{
-		return base;
-	}
-	
-	uint32_t getSize() const
-	{
-		return spentTokens.size();
+		return { base, spentTokens.size() };
 	}
 };
 

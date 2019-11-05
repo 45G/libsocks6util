@@ -47,15 +47,15 @@ uint32_t TokenWallet::remaining() const
 	return base + size - current;
 }
 
-TokenBank::TokenBank(uint32_t base, uint32_t size, uint32_t lowWatermark, uint32_t highWatermark)
-	: base(base), offset(0), lowWatermark(lowWatermark), highWatermark(highWatermark)
+TokenBank::TokenBank(std::pair<uint32_t, uint32_t> win, uint32_t lowWatermark, uint32_t highWatermark)
+	: base(win.first), offset(0), lowWatermark(lowWatermark), highWatermark(highWatermark)
 {
-	spentTokens.resize(size, 0);
+	spentTokens.resize(win.second, 0);
 }
 
 bool TokenBank::withdraw(uint32_t token)
 {
-	if (!(modularLessEqual(base, token) && modularLess(token, base + getSize())))
+	if (!(modularLessEqual(base, token) && modularLess(token, base + spentTokens.size())))
 		return false;
 	
 	if (spentTokens[index(token)])

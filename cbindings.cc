@@ -64,7 +64,7 @@ S6U_TokenBank *S6U_TokenBank_create(uint32_t base, uint32_t size, uint32_t lowWa
 {
 	try
 	{
-		return new TokenBank(base, size, lowWatermark, highWatermark);
+		return new TokenBank({ base, size }, lowWatermark, highWatermark);
 	}
 	S6U_CATCH;
 	
@@ -89,14 +89,14 @@ uint32_t S6U_TokenBank_getBase(S6U_TokenBank *ctx)
 {
 	TokenBank *bank = reinterpret_cast<TokenBank *>(ctx);
 	
-	return bank->getBase();
+	return bank->getWindow().first;
 }
 
 uint32_t S6U_TokenBank_getSize(S6U_TokenBank *ctx)
 {
 	TokenBank *bank = reinterpret_cast<TokenBank *>(ctx);
 	
-	return bank->getSize();
+	return bank->getWindow().second;
 }
 
 int S6U_Packet_hasTFO(const uint8_t *ipPacket)
