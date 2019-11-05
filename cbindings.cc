@@ -19,7 +19,7 @@ S6U_TokenWallet *S6U_TokenWallet_create(uint32_t base, uint32_t size)
 {
 	try
 	{
-		return new TokenWallet(base, size);
+		return new TokenWallet({ base, size });
 	}
 	S6U_CATCH;
 	

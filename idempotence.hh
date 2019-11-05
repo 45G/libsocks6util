@@ -20,8 +20,8 @@ public:
 	TokenWallet()
 		: base(0), current(0), size(0) {}
 	
-	TokenWallet(uint32_t base, uint32_t size)
-		: base(base), current(base), size(size) {}
+	TokenWallet(std::pair<uint32_t, uint32_t> win)
+		: base(win.first), current(base), size(win.second) {}
 	
 	boost::optional<uint32_t> extract();
 	
