@@ -35,13 +35,11 @@ void TokenWallet::updateWindow(uint32_t newBase, uint32_t newSize)
 
 void TokenWallet::updateWindow(const S6M::OptionSet *optionSet)
 {
-	uint32_t newSize = optionSet->idempotence.advertisedSize();
-	if (newSize == 0)
+	auto window = optionSet->idempotence.getAdvertised();
+	if (window.second == 0)
 		return;
 	
-	uint32_t newBase = optionSet->idempotence.advertisedBase();
-	
-	updateWindow(newBase, newSize);
+	updateWindow(window.first, window.second);
 }
 
 uint32_t TokenWallet::remaining() const
