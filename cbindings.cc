@@ -168,7 +168,7 @@ static S6M::Address S6M_Addr_Flush(const S6M_Address *cAddr)
 		return S6M::Address(cAddr->ipv6);
 		
 	case SOCKS6_ADDR_DOMAIN:
-		return S6M::Address(string(cAddr->domain));
+		return S6M::Address(make_shared<string>(cAddr->domain));
 	}
 	
 	throw invalid_argument("Bad address type");
