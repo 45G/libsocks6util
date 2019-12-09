@@ -14,7 +14,6 @@ CONFIG += c99
 
 SOURCES += \
     cbindings.cc \
-    idempotence.cc \
     packet.cc \
     socket.cc \
     requestsafety.cc

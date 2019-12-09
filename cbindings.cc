@@ -19,7 +19,7 @@ S6U_TokenWallet *S6U_TokenWallet_create(uint32_t base, uint32_t size)
 {
 	try
 	{
-		return new TokenWallet({ base, size });
+		return new TokenWallet<>({ base, size });
 	}
 	S6U_CATCH;
 	
@@ -28,14 +28,14 @@ S6U_TokenWallet *S6U_TokenWallet_create(uint32_t base, uint32_t size)
 
 void S6U_TokenWallet_destroy(S6U_TokenWallet *ctx)
 {
-	TokenWallet *wallet = reinterpret_cast<TokenWallet *>(ctx);
+	TokenWallet<> *wallet = reinterpret_cast<TokenWallet<> *>(ctx);
 	
 	delete wallet;
 }
 
 int S6U_TokenWallet_extract(S6U_TokenWallet *ctx, uint32_t *token)
 {
-	TokenWallet *wallet = reinterpret_cast<TokenWallet *>(ctx);
+	TokenWallet<> *wallet = reinterpret_cast<TokenWallet<> *>(ctx);
 	
 	auto extracted = wallet->extract();
 	if (!extracted)
@@ -48,14 +48,14 @@ int S6U_TokenWallet_extract(S6U_TokenWallet *ctx, uint32_t *token)
 
 void S6U_TokenWallet_updateWindow(S6U_TokenWallet *ctx, uint32_t newBase, uint32_t newSize)
 {
-	TokenWallet *wallet = reinterpret_cast<TokenWallet *>(ctx);
+	TokenWallet<> *wallet = reinterpret_cast<TokenWallet<> *>(ctx);
 	
 	wallet->updateWindow({ newBase, newSize });
 }
 
 uint32_t S6U_TokenWallet_remaining(S6U_TokenWallet *ctx)
 {
-	TokenWallet *wallet = reinterpret_cast<TokenWallet *>(ctx);
+	TokenWallet<> *wallet = reinterpret_cast<TokenWallet<> *>(ctx);
 	
 	return wallet->remaining();
 }
@@ -64,7 +64,7 @@ S6U_TokenBank *S6U_TokenBank_create(uint32_t base, uint32_t size, uint32_t lowWa
 {
 	try
 	{
-		return new TokenBank({ base, size }, lowWatermark, highWatermark);
+		return new TokenBank<>({ base, size }, lowWatermark, highWatermark);
 	}
 	S6U_CATCH;
 	
@@ -73,28 +73,28 @@ S6U_TokenBank *S6U_TokenBank_create(uint32_t base, uint32_t size, uint32_t lowWa
 
 void S6U_TokenBank_destroy(S6U_TokenBank *ctx)
 {
-	TokenBank *bank = reinterpret_cast<TokenBank *>(ctx);
+	TokenBank<> *bank = reinterpret_cast<TokenBank<> *>(ctx);
 	
 	delete bank;
 }
 
 int S6U_TokenBank_withdraw(S6U_TokenBank *ctx, uint32_t token)
 {
-	TokenBank *bank = reinterpret_cast<TokenBank *>(ctx);
+	TokenBank<> *bank = reinterpret_cast<TokenBank<> *>(ctx);
 	
 	return bank->withdraw(token);
 }
 
 uint32_t S6U_TokenBank_getBase(S6U_TokenBank *ctx)
 {
-	TokenBank *bank = reinterpret_cast<TokenBank *>(ctx);
+	TokenBank<> *bank = reinterpret_cast<TokenBank<> *>(ctx);
 	
 	return bank->getWindow().first;
 }
 
 uint32_t S6U_TokenBank_getSize(S6U_TokenBank *ctx)
 {
-	TokenBank *bank = reinterpret_cast<TokenBank *>(ctx);
+	TokenBank<> *bank = reinterpret_cast<TokenBank<> *>(ctx);
 	
 	return bank->getWindow().second;
 }
