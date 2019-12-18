@@ -5,6 +5,7 @@ Utility library for SOCKS 6 apps
 
 You will need the following packages:
  * qt5-qmake
+ * Threading Building Blocks (libtbb-dev(el))
  * libsocks6msg (you can get it here: [https://github.com/45G/libsocks6msg])
  
 Afterwards, simply run:

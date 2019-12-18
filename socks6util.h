@@ -11,6 +11,8 @@ extern "C"
 
 typedef void S6U_TokenWallet;
 typedef void S6U_TokenBank;
+typedef void S6U_SyncedTokenWallet;
+typedef void S6U_SyncedTokenBank;
 
 S6U_TokenWallet *S6U_TokenWallet_create(uint32_t base, uint32_t size);
 void S6U_TokenWallet_destroy(S6U_TokenWallet *ctx);
@@ -23,6 +25,18 @@ void S6U_TokenBank_destroy(S6U_TokenBank *ctx);
 int S6U_TokenBank_withdraw(S6U_TokenBank *ctx, uint32_t token);
 uint32_t S6U_TokenBank_getBase(S6U_TokenBank *ctx);
 uint32_t S6U_TokenBank_getSize(S6U_TokenBank *ctx);
+
+S6U_SyncedTokenWallet *S6U_SyncedTokenWallet_create(uint32_t base, uint32_t size);
+void S6U_SyncedTokenWallet_destroy(S6U_SyncedTokenWallet *ctx);
+int S6U_SyncedTokenWallet_extract(S6U_SyncedTokenWallet *ctx, uint32_t *token);
+void S6U_SyncedTokenWallet_updateWindow(S6U_SyncedTokenWallet *ctx, uint32_t newBase, uint32_t newSize);
+uint32_t S6U_SyncedTokenWallet_remaining(S6U_SyncedTokenWallet *ctx);
+
+S6U_SyncedTokenBank *S6U_SyncedTokenBank_create(uint32_t base, uint32_t size, uint32_t lowWatermark, uint32_t highWatermark);
+void S6U_SyncedTokenBank_destroy(S6U_SyncedTokenBank *ctx);
+int S6U_SyncedTokenBank_withdraw(S6U_SyncedTokenBank *ctx, uint32_t token);
+uint32_t S6U_SyncedTokenBank_getBase(S6U_SyncedTokenBank *ctx);
+uint32_t S6U_SyncedTokenBank_getSize(S6U_SyncedTokenBank *ctx);
 
 int S6U_Packet_hasTFO(const uint8_t *ipPacket);
 

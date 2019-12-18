@@ -99,6 +99,90 @@ uint32_t S6U_TokenBank_getSize(S6U_TokenBank *ctx)
 	return bank->getWindow().second;
 }
 
+S6U_SyncedTokenWallet *S6U_SyncedTokenWallet_create(uint32_t base, uint32_t size)
+{
+	try
+	{
+		return new SyncedTokenWallet({ base, size });
+	}
+	S6U_CATCH;
+
+	return nullptr;
+}
+
+void S6U_SyncedTokenWallet_destroy(S6U_SyncedTokenWallet *ctx)
+{
+	SyncedTokenWallet *wallet = reinterpret_cast<SyncedTokenWallet *>(ctx);
+
+	delete wallet;
+}
+
+int S6U_SyncedTokenWallet_extract(S6U_SyncedTokenWallet *ctx, uint32_t *token)
+{
+	SyncedTokenWallet *wallet = reinterpret_cast<SyncedTokenWallet *>(ctx);
+
+	auto extracted = wallet->extract();
+	if (!extracted)
+		return 0;
+
+	*token = extracted.value();
+
+	return 1;
+}
+
+void S6U_SyncedTokenWallet_updateWindow(S6U_SyncedTokenWallet *ctx, uint32_t newBase, uint32_t newSize)
+{
+	SyncedTokenWallet *wallet = reinterpret_cast<SyncedTokenWallet *>(ctx);
+
+	wallet->updateWindow({ newBase, newSize });
+}
+
+uint32_t S6U_SyncedTokenWallet_remaining(S6U_SyncedTokenWallet *ctx)
+{
+	SyncedTokenWallet *wallet = reinterpret_cast<SyncedTokenWallet *>(ctx);
+
+	return wallet->remaining();
+}
+
+S6U_SyncedTokenBank *S6U_SyncedTokenBank_create(uint32_t base, uint32_t size, uint32_t lowWatermark, uint32_t highWatermark)
+{
+	try
+	{
+		return new SyncedTokenBank({ base, size }, lowWatermark, highWatermark);
+	}
+	S6U_CATCH;
+
+	return nullptr;
+}
+
+void S6U_SyncedTokenBank_destroy(S6U_SyncedTokenBank *ctx)
+{
+	SyncedTokenBank *bank = reinterpret_cast<SyncedTokenBank *>(ctx);
+
+	delete bank;
+}
+
+int S6U_SyncedTokenBank_withdraw(S6U_SyncedTokenBank *ctx, uint32_t token)
+{
+	SyncedTokenBank *bank = reinterpret_cast<SyncedTokenBank *>(ctx);
+
+	return bank->withdraw(token);
+}
+
+uint32_t S6U_SyncedTokenBank_getBase(S6U_SyncedTokenBank *ctx)
+{
+	SyncedTokenBank *bank = reinterpret_cast<SyncedTokenBank *>(ctx);
+
+	return bank->getWindow().first;
+}
+
+uint32_t S6U_SyncedTokenBank_getSize(S6U_SyncedTokenBank *ctx)
+{
+	SyncedTokenBank *bank = reinterpret_cast<SyncedTokenBank *>(ctx);
+
+	return bank->getWindow().second;
+}
+
 int S6U_Packet_hasTFO(const uint8_t *ipPacket)
 {
 	return (int)Packet::tfoPayloadSize(ipPacket);
