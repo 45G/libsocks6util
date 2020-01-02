@@ -35,9 +35,9 @@ namespace Socket
 
 int saveSYN(int fd)
 {
-	static const uint32_t one = 1;
+	static const uint32_t ONE = 1;
 	
-	return setsockopt(fd, SOL_TCP, TCP_SAVE_SYN, &one, sizeof(one));
+	return setsockopt(fd, SOL_TCP, TCP_SAVE_SYN, &ONE, sizeof(ONE));
 }
 
 ssize_t tfoPayloadSize(int fd)
