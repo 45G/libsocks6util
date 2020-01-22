@@ -218,7 +218,7 @@ int S6U_Socket_pendingRecv(int fd)
 	return S6U::Socket::pendingRecv(fd);
 }
 
-static void S6M_Addr_Fill(S6M_Address *cAddr, const S6M::Address *cppAddr)
+static void S6M_Addr_Fill_NoDomain(S6M_Address *cAddr, const S6M::Address *cppAddr)
 {
 	cAddr->type = cppAddr->getType();
 	
@@ -233,9 +233,8 @@ static void S6M_Addr_Fill(S6M_Address *cAddr, const S6M::Address *cppAddr)
 		break;
 		
 	case SOCKS6_ADDR_DOMAIN:
-		cAddr->domain = const_cast<char *>(cppAddr->getDomain()->c_str());
-		if (!cAddr->domain)
-			throw bad_alloc();
+		/* only used by SocketAddress; domain name makes no sense */
+		assert(false);
 		break;
 	}
 }
@@ -289,7 +288,7 @@ S6M_Address S6U_SocketAddress_getAddress(const S6U_SocketAddress *sa)
 	{
 		S6M::Address cppAddr = cppSA->getAddress();
 		
-		S6M_Addr_Fill(&cAddr, &cppAddr);
+		S6M_Addr_Fill_NoDomain(&cAddr, &cppAddr);
 	}
 	catch (exception)
 	{
