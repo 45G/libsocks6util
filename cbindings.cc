@@ -9,7 +9,7 @@ using namespace std;
 using namespace S6U;
 
 #define S6U_CATCH \
-	catch (bad_alloc) \
+	catch (bad_alloc &) \
 	{ \
 		errno = ENOMEM; \
 	} \
@@ -266,7 +266,7 @@ void S6U_SocketAddress_init(S6U_SocketAddress *sa, const S6M_Address *addr, uint
 		S6M::Address cppAddr = S6M_Addr_Flush(addr);
 		*cppSA = SocketAddress(cppAddr, port);
 	}
-	catch (exception)
+	catch (exception &)
 	{
 		memset(&sa->storage, 0, sizeof(sa->storage));
 	}
@@ -290,7 +290,7 @@ S6M_Address S6U_SocketAddress_getAddress(const S6U_SocketAddress *sa)
 		
 		S6M_Addr_Fill_NoDomain(&cAddr, &cppAddr);
 	}
-	catch (exception)
+	catch (exception &)
 	{
 		cAddr.type = SOCKS6_ADDR_IPV4;
 		cAddr.ipv4.s_addr = 0;
