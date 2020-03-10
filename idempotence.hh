@@ -29,7 +29,10 @@ public:
 	
 	void updateWindow(const S6M::OptionSet *optionSet);
 	
-	uint32_t remaining() const;
+	uint32_t remaining() const
+	{
+		return win.first + win.second - current;
+	}
 };
 
 class TokenBank
@@ -48,7 +51,11 @@ class TokenBank
 	}
 
 public:
-	TokenBank(std::pair<uint32_t, uint32_t> win, uint32_t lowWatermark, uint32_t highWatermark);
+	TokenBank(std::pair<uint32_t, uint32_t> win, uint32_t lowWatermark, uint32_t highWatermark)
+		: base(win.first), offset(0), lowWatermark(lowWatermark), highWatermark(highWatermark)
+	{
+		spentTokens.resize(win.second, 0);
+	}
 	
 	bool withdraw(uint32_t token);
 	

@@ -16,8 +16,7 @@ SOURCES += \
     cbindings.cc \
     idempotence.cc \
     packet.cc \
-    socket.cc \
-    requestsafety.cc
+    socket.cc
 
 HEADERS += \
     socks6util.h \

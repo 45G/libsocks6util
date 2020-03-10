@@ -43,17 +43,6 @@ void TokenWallet::updateWindow(const S6M::OptionSet *optionSet)
 	updateWindow(window);
 }
 
-uint32_t TokenWallet::remaining() const
-{
-	return win.first + win.second - current;
-}
-
-TokenBank::TokenBank(std::pair<uint32_t, uint32_t> win, uint32_t lowWatermark, uint32_t highWatermark)
-	: base(win.first), offset(0), lowWatermark(lowWatermark), highWatermark(highWatermark)
-{
-	spentTokens.resize(win.second, 0);
-}
-
 bool TokenBank::withdraw(uint32_t token)
 {
 	if (!(modularLessEqual(base, token) && modularLess(token, base + spentTokens.size())))
